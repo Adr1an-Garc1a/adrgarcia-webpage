@@ -21,16 +21,29 @@ else
   gcloud builds connections create github "$GH_CONNECTION" --region="$REGION" --quiet || true
 fi
 
-STAGE="$(gcloud builds connections describe "$GH_CONNECTION" --region="$REGION" --format='value(installationState.stage)')"
+conn_stage() {
+  gcloud builds connections describe "$GH_CONNECTION" --region="$REGION" --format='value(installationState.stage)'
+}
+STAGE="$(conn_stage)"
 if [[ "$STAGE" != "COMPLETE" ]]; then
   URI="$(gcloud builds connections describe "$GH_CONNECTION" --region="$REGION" --format='value(installationState.actionUri)')"
-  warn "Autoriza la app de Cloud Build en GitHub (solo la primera vez):"
+  warn "Falta completar la conexión con GitHub (estado: ${STAGE})."
+  echo "  Abre este enlace con la MISMA cuenta de Google que usa gcloud ($(gcloud config get-value account 2>/dev/null)):"
   echo "    ${URI}"
-  echo "  1) Abre el enlace, inicia sesión en GitHub y autoriza."
-  echo "  2) Instala la app 'Google Cloud Build' solo en el repositorio ${GITHUB_OWNER}/${GITHUB_REPO}."
-  read -r -p "Presiona Enter cuando termines… "
-  STAGE="$(gcloud builds connections describe "$GH_CONNECTION" --region="$REGION" --format='value(installationState.stage)')"
-  [[ "$STAGE" == "COMPLETE" ]] || die "La conexión aún no está completa (estado: ${STAGE}). Vuelve a ejecutar este script."
+  echo "  • PENDING_USER_OAUTH   → autoriza 'Google Cloud Build' en GitHub."
+  echo "  • PENDING_INSTALL_APP  → en la pantalla de Google elige 'Install in GitHub' / 'Update install',"
+  echo "    selecciona la cuenta ${GITHUB_OWNER}, 'Only select repositories' → ${GITHUB_REPO} → Install/Save."
+  echo "    Si la app ya estaba instalada, entra a https://github.com/settings/installations → Google Cloud Build"
+  echo "    → Configure, agrega el repo y vuelve al enlace de arriba para que Google la vincule."
+  echo "  También puedes hacerlo desde la consola: Cloud Build → Repositorios (2nd gen) → conexión '${GH_CONNECTION}'."
+  echo
+  log "Esperando a que la conexión quede lista (hasta 10 min; Ctrl+C para salir)…"
+  for _ in $(seq 1 120); do
+    STAGE="$(conn_stage)"
+    [[ "$STAGE" == "COMPLETE" ]] && break
+    sleep 5
+  done
+  [[ "$STAGE" == "COMPLETE" ]] || die "La conexión sigue en ${STAGE}. Revisa los pasos de arriba y vuelve a ejecutar el script."
 fi
 ok "Conexión con GitHub activa"
 
