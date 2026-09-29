@@ -1,0 +1,11 @@
+# Files uploaded to Cloud Build (gcloud builds submit). Keep the context small.
+.git
+.gitignore
+.claude/
+.impeccable/
+node_modules/
+dist/
+docs/
+infra/
+*.md
+!public/**

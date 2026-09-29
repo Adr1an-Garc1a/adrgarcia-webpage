@@ -1,0 +1,14 @@
+.git
+.github
+.claude
+.impeccable
+node_modules
+dist
+docs
+infra
+*.md
+!public/**
+Dockerfile
+cloudbuild.yaml
+tests/*
+!tests/validate.mjs

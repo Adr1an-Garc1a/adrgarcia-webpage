@@ -1,0 +1,405 @@
+// Single source of truth for all site copy. Every user-facing string exists in
+// both languages; the build renders /index.html (es) and /en/index.html (en).
+
+export const site = {
+  url: 'https://adrgarcia.com',
+  name: 'Adrián García Juárez',
+  email: 'gadrianjua@gmail.com',
+  linkedin: 'https://www.linkedin.com/in/adrian-garcia-juarez-83020b232',
+  cv: '/docs/adrian-garcia-juarez-cv-2026-en.pdf',
+  locales: ['es', 'en'],
+};
+
+export const t = {
+  es: {
+    htmlLang: 'es-MX',
+    ogLocale: 'es_MX',
+    path: '/',
+    title: 'Adrián García Juárez — Customer Engineer · Google Cloud',
+    description:
+      'Customer Engineer en Xertica.ai con 6 certificaciones vigentes de Google Cloud. Arquitectura cloud, ingeniería de datos, seguridad y preventa técnica en CDMX.',
+    skip: 'Saltar al contenido',
+    nav: { about: 'Perfil', experience: 'Experiencia', certs: 'Certificaciones', skills: 'Habilidades', contact: 'Contacto' },
+    menu: 'Menú',
+    langSwitch: { label: 'English', short: 'EN', aria: 'Ver el sitio en inglés' },
+    theme: { toLight: 'Cambiar a tema claro', toDark: 'Cambiar a tema oscuro' },
+    hero: {
+      role: 'Customer Engineer en Xertica.ai',
+      tagline: 'Diseño arquitecturas en Google Cloud y las convierto en resultados de negocio.',
+      lede: 'Cuatro años entre la consola y la sala de juntas: migraciones, pipelines de datos, seguridad y FinOps, explicados en el idioma de quien decide.',
+      ctaPrimary: 'Escríbeme',
+      ctaCv: 'Ver CV',
+      proof: '6 certificaciones Google Cloud vigentes',
+      proofDetail: '3 Professional · 1 Associate · 2 Foundational',
+      location: 'Ciudad de México',
+      photoAlt: 'Adrián García Juárez sonriendo, sentado sobre una escultura de piedra en un bosque de oyameles.',
+    },
+    about: {
+      title: 'Perfil',
+      body: [
+        'Soy Ingeniero en Informática egresado del Instituto Politécnico Nacional (UPIICSA) y arquitecto de soluciones certificado en Google Cloud. Mi carrera empezó aprovisionando proyectos en GCP y hoy acompaño a empresas desde el discovery técnico hasta la prueba de concepto.',
+        'Me especializo en migración de infraestructura, pipelines de ingeniería de datos y arquitectura de seguridad. Traduzco requerimientos técnicos en propuestas de valor con foco en optimización de consumo (FinOps), para que la decisión sea clara y el cierre, más rápido.',
+      ],
+      facts: [
+        { k: 'Base', v: 'CDMX, México' },
+        { k: 'Formación', v: 'Ing. en Informática · UPIICSA-IPN, 2022' },
+        { k: 'Idiomas', v: 'Español nativo · Inglés C1' },
+        { k: 'Enfoque', v: 'Infraestructura, Datos, Seguridad, IA generativa' },
+      ],
+      sceneAlt: 'Adrián en un bosque de coníferas bajo cielo despejado.',
+    },
+    exp: {
+      title: 'Experiencia',
+      intro: 'De la infraestructura a la estrategia técnica comercial. Selecciona un puesto para ver el detalle.',
+      present: 'Actualidad',
+      more: 'Ver logros',
+      less: 'Ocultar logros',
+      education: 'Formación',
+    },
+    certs: {
+      title: 'Certificaciones',
+      intro: 'Seis credenciales oficiales de Google Cloud, todas vigentes. Cada tarjeta abre la verificación pública en Credly en una pestaña nueva.',
+      verify: 'Verificar en Credly',
+      view: 'Ver certificado',
+      issued: 'Emitida',
+      expires: 'Vigente hasta',
+      newTab: '(se abre en una pestaña nueva)',
+      levels: { professional: 'Professional', associate: 'Associate', foundational: 'Foundational' },
+    },
+    skills: { title: 'Habilidades' },
+    contact: {
+      title: '¿Construimos algo en la nube?',
+      body: 'Preventa, arquitectura, una PoC o una conversación sobre tu próximo proyecto en Google Cloud. Respondo en español o inglés.',
+      email: 'Escríbeme',
+      copy: 'Copiar correo',
+      copied: 'Correo copiado',
+      linkedin: 'LinkedIn',
+      cv: 'Descargar CV (PDF)',
+    },
+    viewer: {
+      close: 'Cerrar',
+      download: 'Descargar PDF',
+      open: 'Abrir PDF',
+      prev: 'Página anterior',
+      next: 'Página siguiente',
+      page: 'Página',
+      of: 'de',
+      zoom: 'Ampliar',
+      cvTitle: 'Currículum 2026 (inglés)',
+    },
+    footer: { rights: 'Adrián García Juárez', built: 'Servido desde Google Cloud Run.', top: 'Volver arriba' },
+    notFound: { title: 'Página no encontrada', body: 'La dirección no existe o cambió de lugar.', back: 'Volver al inicio' },
+    months: ['ene', 'feb', 'mar', 'abr', 'may', 'jun', 'jul', 'ago', 'sep', 'oct', 'nov', 'dic'],
+    dur: { y: 'año', ys: 'años', m: 'mes', ms: 'meses' },
+  },
+  en: {
+    htmlLang: 'en',
+    ogLocale: 'en_US',
+    path: '/en/',
+    title: 'Adrián García Juárez — Customer Engineer · Google Cloud',
+    description:
+      'Customer Engineer at Xertica.ai holding 6 active Google Cloud certifications. Cloud architecture, data engineering, security and technical presales in Mexico City.',
+    skip: 'Skip to content',
+    nav: { about: 'Profile', experience: 'Experience', certs: 'Certifications', skills: 'Skills', contact: 'Contact' },
+    menu: 'Menu',
+    langSwitch: { label: 'Español', short: 'ES', aria: 'View the site in Spanish' },
+    theme: { toLight: 'Switch to light theme', toDark: 'Switch to dark theme' },
+    hero: {
+      role: 'Customer Engineer at Xertica.ai',
+      tagline: 'I design Google Cloud architectures and turn them into business outcomes.',
+      lede: 'Four years between the console and the boardroom: migrations, data pipelines, security and FinOps, explained in the language of whoever signs off.',
+      ctaPrimary: 'Get in touch',
+      ctaCv: 'View CV',
+      proof: '6 active Google Cloud certifications',
+      proofDetail: '3 Professional · 1 Associate · 2 Foundational',
+      location: 'Mexico City',
+      photoAlt: 'Adrián García Juárez smiling, seated on a stone sculpture in a fir forest.',
+    },
+    about: {
+      title: 'Profile',
+      body: [
+        'I am an Informatics Engineer from Mexico’s Instituto Politécnico Nacional (UPIICSA) and a Google Cloud certified solutions architect. I started out provisioning GCP projects; today I guide companies from technical discovery all the way to a working proof of concept.',
+        'I specialize in infrastructure migration, data engineering pipelines and security architecture. I translate technical requirements into value propositions focused on consumption optimization (FinOps), so the decision is clear and the deal closes faster.',
+      ],
+      facts: [
+        { k: 'Based in', v: 'Mexico City, Mexico' },
+        { k: 'Education', v: 'B.Sc. Computer Science · UPIICSA-IPN, 2022' },
+        { k: 'Languages', v: 'Spanish (native) · English C1' },
+        { k: 'Focus', v: 'Infrastructure, Data, Security, Generative AI' },
+      ],
+      sceneAlt: 'Adrián in a conifer forest under a clear sky.',
+    },
+    exp: {
+      title: 'Experience',
+      intro: 'From infrastructure to technical sales strategy. Select a role to see the details.',
+      present: 'Present',
+      more: 'Show results',
+      less: 'Hide results',
+      education: 'Education',
+    },
+    certs: {
+      title: 'Certifications',
+      intro: 'Six official Google Cloud credentials, all active. Each card opens its public Credly verification in a new tab.',
+      verify: 'Verify on Credly',
+      view: 'View certificate',
+      issued: 'Issued',
+      expires: 'Valid until',
+      newTab: '(opens in a new tab)',
+      levels: { professional: 'Professional', associate: 'Associate', foundational: 'Foundational' },
+    },
+    skills: { title: 'Skills' },
+    contact: {
+      title: 'Shall we build something in the cloud?',
+      body: 'Presales, architecture, a PoC or a conversation about your next Google Cloud project. I reply in English or Spanish.',
+      email: 'Email me',
+      copy: 'Copy email',
+      copied: 'Email copied',
+      linkedin: 'LinkedIn',
+      cv: 'Download CV (PDF)',
+    },
+    viewer: {
+      close: 'Close',
+      download: 'Download PDF',
+      open: 'Open PDF',
+      prev: 'Previous page',
+      next: 'Next page',
+      page: 'Page',
+      of: 'of',
+      zoom: 'Zoom',
+      cvTitle: 'Résumé 2026',
+    },
+    footer: { rights: 'Adrián García Juárez', built: 'Served from Google Cloud Run.', top: 'Back to top' },
+    notFound: { title: 'Page not found', body: 'That address does not exist or has moved.', back: 'Back to home' },
+    months: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+    dur: { y: 'yr', ys: 'yrs', m: 'mo', ms: 'mos' },
+  },
+};
+
+// Grouped by employer, newest first. Dates are ISO "YYYY-MM"; end null = present.
+export const experience = [
+  {
+    company: 'Xertica.ai',
+    logo: 'xertica',
+    invertOnDark: true,
+    roles: [
+      {
+        id: 'xertica-ce',
+        start: '2026-06',
+        end: null,
+        title: { es: 'Customer Engineer', en: 'Customer Engineer' },
+        summary: {
+          es: 'Arquitectura de soluciones y demostraciones técnicas para las unidades de negocio de Xertica.',
+          en: 'Solution architecture and technical demos across Xertica’s business units.',
+        },
+        points: {
+          es: [
+            'Desarrollo y presento **pruebas de concepto** y demos en vivo que validan la factibilidad de la arquitectura ante tomadores de decisión.',
+            'Lidero discovery técnico, alcance y diseño de soluciones en **Google Workspace, Infraestructura, Datos, Seguridad e IA**.',
+            'Trabajo a diario con ventas para destrabar objeciones técnicas, validar requerimientos y avanzar oportunidades en el pipeline.',
+          ],
+          en: [
+            'Build and deliver hands-on **proofs of concept** and live demos that validate architectural feasibility for client decision-makers.',
+            'Drive technical discovery, scoping and solution design across **Google Workspace, Infrastructure, Data, Security and AI**.',
+            'Partner daily with sales to unblock technical objections, validate requirements and move deals through the pipeline.',
+          ],
+        },
+        tags: ['PoCs', 'Discovery', 'Workspace', 'GenAI'],
+      },
+    ],
+  },
+  {
+    company: 'Servinformación',
+    logo: 'servinformacion',
+    invertOnDark: false,
+    roles: [
+      {
+        id: 'servi-tsl',
+        start: '2024-11',
+        end: '2026-04',
+        title: { es: 'Technical Sales Leader México', en: 'Technical Sales Leader Mexico' },
+        summary: {
+          es: 'Estrategia técnica comercial para proyectos de Datos, Infraestructura e IA en Google Cloud.',
+          en: 'Technical sales strategy for Data, Infrastructure and AI projects on Google Cloud.',
+        },
+        points: {
+          es: [
+            '**+38 %** de utilidad anual del negocio liderando la estrategia técnica y propuestas de alto valor en GCP.',
+            '**≈ USD 260 k+** en upsell en cuentas clave al detectar oportunidades de modernización, como migraciones a BigQuery.',
+            '**+10 %** en tasa de cierre al rediseñar las demos técnicas alrededor de resultados de negocio para audiencias C-Level.',
+          ],
+          en: [
+            '**+38%** annual business utility by leading technical strategy and high-value proposals on GCP.',
+            '**≈ USD 260k+** in upsell revenue across key accounts by spotting modernization opportunities such as BigQuery migrations.',
+            '**+10%** deal closure rate by redesigning technical demos around business outcomes for C-level audiences.',
+          ],
+        },
+        tags: ['BigQuery', 'Upsell', 'C-Level'],
+      },
+      {
+        id: 'servi-presales',
+        start: '2024-01',
+        end: '2024-11',
+        title: { es: 'Presales Engineer', en: 'Presales Engineer' },
+        summary: {
+          es: 'Preventa técnica para los segmentos Corporativo y PyME.',
+          en: 'Technical presales for Corporate and SMB segments.',
+        },
+        points: {
+          es: [
+            '**+42 %** de utilidad anual para el área de preventa.',
+            '**≈ 40 %** menos tiempo de ciclo de venta gracias a sesiones de discovery eficientes y PoCs de alto impacto.',
+            'Pipeline técnico de **USD 380 k+** gestionado junto a los equipos comerciales.',
+            '**80+** propuestas técnicas a la medida (Infra, Datos, Analítica) con **20 %** de tasa de éxito.',
+          ],
+          en: [
+            '**+42%** annual utility for the presales department.',
+            '**≈ 40%** shorter sales cycle through efficient discovery sessions and high-impact PoCs.',
+            'Managed a technical pipeline worth **USD 380k+** alongside the sales teams.',
+            '**80+** custom technical proposals (Infra, Data, Analytics) with a **20%** win rate.',
+          ],
+        },
+        tags: ['Presales', 'PoCs', 'ROI'],
+      },
+    ],
+  },
+  {
+    company: 'Xertica.ai',
+    logo: 'xertica',
+    invertOnDark: true,
+    roles: [
+      {
+        id: 'xertica-analyst',
+        start: '2023-01',
+        end: '2023-12',
+        title: { es: 'Cloud Analyst', en: 'Cloud Analyst' },
+        summary: {
+          es: 'Diseño y despliegue de infraestructura y monitoreo para nuevos clientes.',
+          en: 'Designed and deployed infrastructure and monitoring for new customers.',
+        },
+        points: {
+          es: [
+            '**10–15 %** menos en la factura mensual de **15+** arquitecturas empresariales mediante FinOps y right-sizing.',
+            '**30 %** menos tiempo de despliegue automatizando aprovisionamiento con **Terraform y Jenkins**, con consistencia total entre ambientes.',
+            'IAM y buenas prácticas de seguridad integradas en cada despliegue para reducir la superficie de ataque.',
+          ],
+          en: [
+            '**10–15%** lower monthly billing across **15+** enterprise architectures through FinOps and right-sizing.',
+            '**30%** faster deployments by automating provisioning with **Terraform and Jenkins**, fully consistent across environments.',
+            'Built IAM and security best practices into every deployment to shrink the attack surface.',
+          ],
+        },
+        tags: ['FinOps', 'Terraform', 'IAM'],
+      },
+      {
+        id: 'xertica-academy',
+        start: '2022-02',
+        end: '2023-01',
+        title: { es: 'Academy Infra', en: 'Academy Infra' },
+        summary: {
+          es: 'Aprovisionamiento de servicios core de Google Cloud y soporte a clientes.',
+          en: 'Provisioned core Google Cloud services and supported customers.',
+        },
+        points: {
+          es: [
+            'Onboarding de **20+** proyectos cloud con Compute Engine, VPC y Cloud Storage, priorizando alta disponibilidad.',
+            'Gestión del ciclo de vida de tickets de soporte GCP, reduciendo tiempos de resolución.',
+            'Biblioteca de **20+** documentos de arquitectura que estandarizó los despliegues del equipo.',
+            'Sesiones de transferencia de conocimiento para que los equipos de los clientes operaran sus entornos.',
+          ],
+          en: [
+            'Onboarded **20+** cloud projects on Compute Engine, VPC and Cloud Storage with a focus on high availability.',
+            'Managed the GCP support ticket lifecycle, cutting incident resolution times.',
+            'Wrote a library of **20+** architecture documents that standardized team deployments.',
+            'Led knowledge-transfer sessions so client teams could run their own environments.',
+          ],
+        },
+        tags: ['Compute Engine', 'VPC', 'Docs'],
+      },
+    ],
+  },
+];
+
+export const education = {
+  logo: 'ipn',
+  school: 'UPIICSA · Instituto Politécnico Nacional',
+  year: '2022',
+  degree: { es: 'Ingeniería en Informática', en: 'B.Sc. Computer Science (Informatics Engineering)' },
+};
+
+// Ordered by level. Dates from the official certificate PDFs.
+export const certifications = [
+  {
+    slug: 'professional-cloud-architect',
+    name: 'Professional Cloud Architect',
+    level: 'professional',
+    issued: '2023-02-24',
+    expires: '2027-02-21',
+    credly: 'https://www.credly.com/badges/b7139028-a123-4fa7-b611-d6705fae6491/public_url',
+  },
+  {
+    slug: 'professional-data-engineer',
+    name: 'Professional Data Engineer',
+    level: 'professional',
+    issued: '2024-12-20',
+    expires: '2026-12-20',
+    credly: 'https://www.credly.com/badges/1972f535-bfde-4b3b-adc8-c7c2aa7ed48f/public_url',
+  },
+  {
+    slug: 'professional-cloud-security-engineer',
+    name: 'Professional Cloud Security Engineer',
+    level: 'professional',
+    issued: '2023-12-08',
+    expires: '2027-11-14',
+    credly: 'https://www.credly.com/badges/a719b6d7-e994-4441-85d0-50362c2fa8f6/public_url',
+  },
+  {
+    slug: 'associate-cloud-engineer',
+    name: 'Associate Cloud Engineer',
+    level: 'associate',
+    issued: '2022-12-18',
+    expires: '2027-09-01',
+    credly: 'https://www.credly.com/badges/acb59d50-2bba-4ca5-8291-b61590d0e328/public_url',
+  },
+  {
+    slug: 'generative-ai-leader',
+    name: 'Generative AI Leader',
+    level: 'foundational',
+    issued: '2026-04-23',
+    expires: '2029-04-23',
+    credly: 'https://www.credly.com/badges/605fa181-ffb9-4a09-8057-93e7c478ce2a/public_url',
+  },
+  {
+    slug: 'cloud-digital-leader',
+    name: 'Cloud Digital Leader',
+    level: 'foundational',
+    issued: '2023-06-24',
+    expires: '2029-05-15',
+    credly: 'https://www.credly.com/badges/8033759b-aced-4098-8db8-5702797b3fda/public_url',
+  },
+];
+
+export const skills = [
+  {
+    title: { es: 'Cloud y DevOps', en: 'Cloud & DevOps' },
+    items: ['Google Cloud Platform', 'Terraform', 'Docker', 'Kubernetes', 'Linux', 'Jenkins', 'CI/CD', { es: 'Redes on-premises', en: 'On-prem networking' }],
+  },
+  {
+    title: { es: 'Datos e IA', en: 'Data & AI' },
+    items: ['BigQuery', { es: 'ETL y flujos de datos', en: 'ETL & data workflows' }, 'MySQL', 'PostgreSQL', 'SQL Server', { es: 'Arquitectura de agentes de IA', en: 'AI agent architecture' }],
+  },
+  {
+    title: { es: 'Desarrollo', en: 'Development' },
+    items: ['Python', 'JavaScript', 'Node.js', 'React', 'HTML / CSS', 'Git / GitHub'],
+  },
+  {
+    title: { es: 'Negocio y productividad', en: 'Business & productivity' },
+    items: [
+      { es: 'Preventa técnica', en: 'Technical presales' },
+      'FinOps',
+      { es: 'Pruebas de concepto', en: 'Proofs of concept' },
+      { es: 'Admin. de Google Workspace', en: 'Google Workspace admin' },
+      'AppSheet (no-code)',
+      { es: 'Microsoft 365 (básico)', en: 'Microsoft 365 (baseline)' },
+    ],
+  },
+];

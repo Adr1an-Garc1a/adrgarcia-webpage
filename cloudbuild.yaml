@@ -1,0 +1,77 @@
+# CI/CD: build → test → push (Artifact Registry) → deploy (Cloud Run)
+# Triggered on every push to main (see infra/03-github-trigger.sh).
+# Manual run:  infra/02-first-deploy.sh   (passes _TAG explicitly)
+
+substitutions:
+  _REGION: us-central1
+  _REPO: web
+  _SERVICE: adrgarcia-web
+  _RUNTIME_SA: web-runtime@${PROJECT_ID}.iam.gserviceaccount.com
+  _IMAGE: ${_REGION}-docker.pkg.dev/${PROJECT_ID}/${_REPO}/${_SERVICE}
+  _TAG: ${SHORT_SHA}
+
+options:
+  dynamicSubstitutions: true
+  logging: CLOUD_LOGGING_ONLY # required with a user-managed build service account
+  # Default machine (e2-standard-2) is the one covered by the Cloud Build free tier.
+
+timeout: 900s
+
+steps:
+  # 1) Build. The Dockerfile's first stage runs the build + tests/validate.mjs
+  #    (CSP compatibility, a11y basics, broken links, no private data), so a
+  #    failing check stops the pipeline here.
+  - id: build
+    name: gcr.io/cloud-builders/docker
+    args:
+      - build
+      - --pull
+      - --tag=${_IMAGE}:${_TAG}
+      - --tag=${_IMAGE}:latest
+      - --label=org.opencontainers.image.revision=${_TAG}
+      - .
+
+  # 2) Run the image and smoke-test status codes + security headers.
+  - id: run-container
+    name: gcr.io/cloud-builders/docker
+    args: [run, -d, --name=web, --network=cloudbuild, --read-only, --tmpfs=/tmp, '${_IMAGE}:${_TAG}']
+
+  - id: smoke-test
+    name: gcr.io/cloud-builders/gcloud
+    entrypoint: bash
+    args:
+      - -c
+      - |
+        timeout 30 bash -c 'until curl -fs -o /dev/null http://web:8080/; do sleep 1; done'
+        bash tests/smoke.sh http://web:8080
+
+  # 3) Push only images that passed the tests.
+  - id: push
+    name: gcr.io/cloud-builders/docker
+    args: [push, --all-tags, '${_IMAGE}']
+
+  # 4) Deploy with the smallest footprint Cloud Run allows.
+  - id: deploy
+    name: gcr.io/cloud-builders/gcloud
+    entrypoint: gcloud
+    args:
+      - run
+      - deploy
+      - ${_SERVICE}
+      - --image=${_IMAGE}:${_TAG}
+      - --region=${_REGION}
+      - --platform=managed
+      - --service-account=${_RUNTIME_SA}
+      - --port=8080
+      - --execution-environment=gen1 # allows 128Mi
+      - --cpu=1
+      - --memory=128Mi
+      - --concurrency=80
+      - --min-instances=0 # scale to zero: no cost while idle
+      - --max-instances=2 # hard cap on cost and abuse
+      - --cpu-throttling # CPU billed only while serving requests
+      - --no-cpu-boost
+      - --timeout=30s
+      - --ingress=all
+      - --labels=app=adrgarcia-web,managed-by=cloud-build
+      - --quiet

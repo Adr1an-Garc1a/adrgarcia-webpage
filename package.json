@@ -1,0 +1,17 @@
+{
+  "name": "adrian-garcia-webpage",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Sitio personal de Adrián García Juárez — HTML/CSS/JS estático servido por nginx en Cloud Run.",
+  "type": "module",
+  "engines": { "node": ">=20" },
+  "scripts": {
+    "build": "node scripts/build.mjs",
+    "test": "node scripts/build.mjs && node tests/validate.mjs",
+    "serve": "node scripts/build.mjs && node scripts/serve.mjs",
+    "docker:build": "docker build -t adrgarcia-web:local .",
+    "docker:run": "docker run --rm -p 8080:8080 --read-only --tmpfs /tmp adrgarcia-web:local",
+    "smoke": "bash tests/smoke.sh http://localhost:8080"
+  },
+  "license": "UNLICENSED"
+}
