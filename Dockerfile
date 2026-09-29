@@ -27,6 +27,7 @@ RUN rm -f /etc/nginx/conf.d/*.conf \
  && rm -rf /usr/share/nginx/html/* \
  && mkdir -p /etc/nginx/snippets \
  && apk --no-cache upgrade
+COPY nginx/nginx.conf /etc/nginx/nginx.conf
 COPY nginx/default.conf /etc/nginx/conf.d/default.conf
 COPY nginx/security-headers.conf nginx/csp-page.conf /etc/nginx/snippets/
 COPY --from=build --chown=101:101 /app/dist /usr/share/nginx/html

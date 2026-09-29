@@ -10,7 +10,7 @@ Cloud Build ── docker build ─► validate.mjs (CSP, a11y, links, datos pri
    │           smoke test ───► tests/smoke.sh (códigos + cabeceras de seguridad)
    │           push ─────────► Artifact Registry (conserva 5 imágenes)
    ▼           deploy
-Cloud Run  (nginx sin root · 128 MiB · 0–2 instancias · escala a cero)
+Cloud Run  (nginx sin root · 256 MiB · 0–2 instancias · escala a cero)
    ▲
 Cloud DNS  adrgarcia.com / www  ◄── nameservers delegados desde Hostinger
 ```
@@ -77,7 +77,7 @@ bash infra/05-budget-alerts.sh    # requiere BILLING_ACCOUNT en config.env
 
 | Servicio | Uso típico | Costo |
 |---|---|---|
-| Cloud Run | < 2 M solicitudes/mes, 128 MiB, CPU solo durante la solicitud | Dentro de la capa gratuita |
+| Cloud Run | < 2 M solicitudes/mes, 256 MiB, CPU solo durante la solicitud | Dentro de la capa gratuita |
 | Artifact Registry | ~5 imágenes de ~30 MB (≈ 0.15 GB) | Dentro de los 0.5 GB gratis |
 | Cloud Build | ~2 min por build | Capa gratuita: 2,500 min/mes en e2-standard-2 |
 | Cloud DNS | 1 zona + consultas | ≈ USD 0.20 + 0.40 por millón de consultas |

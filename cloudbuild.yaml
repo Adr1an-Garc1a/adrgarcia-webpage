@@ -63,9 +63,9 @@ steps:
       - --platform=managed
       - --service-account=${_RUNTIME_SA}
       - --port=8080
-      - --execution-environment=gen1 # allows 128Mi
+      - --execution-environment=gen1 # allows < 512Mi
       - --cpu=1
-      - --memory=128Mi
+      - --memory=256Mi
       - --concurrency=80
       - --min-instances=0 # scale to zero: no cost while idle
       - --max-instances=2 # hard cap on cost and abuse
