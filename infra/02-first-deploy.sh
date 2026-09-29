@@ -25,8 +25,12 @@ if ! gcloud storage buckets describe "$STAGING_BUCKET" >/dev/null 2>&1; then
   log "Creando bucket de staging ${STAGING_BUCKET}…"
   gcloud storage buckets create "$STAGING_BUCKET" --location="$REGION" \
     --uniform-bucket-level-access --public-access-prevention --quiet
-  gcloud storage buckets update "$STAGING_BUCKET" --lifecycle-file=<(echo '{"rule":[{"action":{"type":"Delete"},"condition":{"age":7}}]}') --quiet
 fi
+# Auto-delete uploaded sources after 7 days (keeps storage cost at ~0).
+LIFECYCLE_FILE="$(mktemp)"
+echo '{"rule":[{"action":{"type":"Delete"},"condition":{"age":7}}]}' >"$LIFECYCLE_FILE"
+gcloud storage buckets update "$STAGING_BUCKET" --lifecycle-file="$LIFECYCLE_FILE" --quiet >/dev/null
+rm -f "$LIFECYCLE_FILE"
 gcloud storage buckets add-iam-policy-binding "$STAGING_BUCKET" \
   --member="serviceAccount:${DEPLOYER_SA}" --role="roles/storage.objectViewer" --quiet >/dev/null
 gcloud storage buckets add-iam-policy-binding "$STAGING_BUCKET" \
