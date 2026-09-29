@@ -31,8 +31,11 @@ COPY nginx/nginx.conf /etc/nginx/nginx.conf
 COPY nginx/default.conf /etc/nginx/conf.d/default.conf
 COPY nginx/security-headers.conf nginx/csp-page.conf /etc/nginx/snippets/
 COPY --from=build --chown=101:101 /app/dist /usr/share/nginx/html
-RUN nginx -t
 
+# Validate the config as the runtime user (uid 101), never as root: running
+# `nginx -t` as root leaves root-owned files in /tmp (nginx.pid, *_temp) that
+# the unprivileged process can't open later, and Cloud Run answers 503.
 USER 101
+RUN nginx -t && rm -rf /tmp/nginx.pid /tmp/*_temp
 EXPOSE 8080
 # Cloud Run sends SIGTERM; nginx handles it via the image's STOPSIGNAL (SIGQUIT).

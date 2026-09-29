@@ -34,7 +34,9 @@ steps:
   # 2) Run the image and smoke-test status codes + security headers.
   - id: run-container
     name: gcr.io/cloud-builders/docker
-    args: [run, -d, --name=web, --network=cloudbuild, --read-only, --tmpfs=/tmp, '${_IMAGE}:${_TAG}']
+    # Same filesystem conditions as Cloud Run (no tmpfs/read-only tricks that
+    # could hide a problem the real service would hit).
+    args: [run, -d, --name=web, --network=cloudbuild, '${_IMAGE}:${_TAG}']
 
   - id: smoke-test
     name: gcr.io/cloud-builders/gcloud
