@@ -60,7 +60,7 @@ Theme: follows `prefers-color-scheme`, can be toggled, and is remembered in `loc
 
 ## Breakpoints
 
-- `≤ 1000 px`: certification and skill grids go to 2 columns.
+- `≤ 1000 px`: the certification grid goes to 2 columns. Skills are always 2×2 cards (1 column at ≤ 560 px).
 - `≤ 960 px`: hero stacks (photo on top, 5:4).
 - `≤ 860 px`: mobile nav; the timeline logo column collapses above the roles.
 - `≤ 560 px`: 1-column grids; certification cards become horizontal.

@@ -1514,12 +1514,17 @@ main:focus {
 /* ---------- skills ---------- */
 .skill-grid {
   display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: var(--s-6) var(--s-5);
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: clamp(1rem, 0.5rem + 1.5vw, 1.75rem);
+  align-items: stretch;
 }
+/* each group is a card, like the profile pillars: breathing room on every side */
 .skill-group {
-  padding-top: var(--s-4);
-  border-top: 2px solid var(--ink);
+  padding: var(--s-6) clamp(1.25rem, 0.75rem + 1.5vw, 2rem);
+  border: 1px solid var(--line);
+  border-top: 3px solid var(--ink);
+  border-radius: var(--r-lg);
+  background: var(--surface);
 }
 .skill-title {
   font-size: var(--fs-md);
@@ -1535,9 +1540,9 @@ main:focus {
 }
 .chips li {
   padding: 0.4rem 0.8rem;
+  background: var(--bg);
   border: 1px solid var(--line);
   border-radius: 999px;
-  background: var(--surface);
   font-size: var(--fs-sm);
   color: var(--ink-2);
   transition:
@@ -1549,11 +1554,6 @@ main:focus {
   border-color: var(--accent-line);
   color: var(--ink);
   transform: translateY(-2px);
-}
-@media (max-width: 1000px) {
-  .skill-grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
 }
 @media (max-width: 560px) {
   .skill-grid {
@@ -2444,7 +2444,18 @@ body.has-dialog {
 .skill-group:nth-child(4) { --c: var(--neon-orange); }
 .skill-group {
   border-top-color: var(--c);
-  box-shadow: 0 -6px 14px -10px var(--c);
+  box-shadow:
+    0 -6px 16px -12px var(--c),
+    var(--shadow-sm);
+  transition:
+    transform 0.4s var(--ease-out),
+    box-shadow 0.4s var(--ease-out);
+}
+.skill-group:hover {
+  transform: translateY(-3px);
+  box-shadow:
+    0 -6px 16px -12px var(--c),
+    0 14px 32px color-mix(in srgb, var(--c) 18%, transparent);
 }
 .chips li:hover {
   border-color: var(--c);
