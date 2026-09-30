@@ -34,6 +34,57 @@ const icon = (name, cls = 'icon') =>
 
 const ext = 'target="_blank" rel="noopener noreferrer"';
 
+// Decorative neon shapes (pure CSS/SVG, aria-hidden). Positions live in CSS per field.
+const NEON = {
+  hero: ['ring green', 'dot blue', 'tri pink', 'square yellow', 'plus purple', 'ring orange', 'dot red', 'pill blue'],
+  exp: ['ring purple', 'plus green', 'dot orange', 'tri blue'],
+  certs: ['square pink', 'ring yellow', 'dot green', 'plus red', 'tri purple'],
+  contact: ['ring green', 'tri yellow', 'plus pink', 'dot blue', 'square orange', 'ring purple'],
+};
+const triangle = '<svg viewBox="0 0 40 36"><path d="M20 3 37 33H3z"/></svg>';
+const neon = (set) =>
+  `<div class="neon-field neon-${set}" aria-hidden="true">${NEON[set]
+    .map((k, i) => {
+      const [shape, color] = k.split(' ');
+      return `<span class="nf nf-${shape} c-${color}" data-depth="${(i % 4) + 1}">${shape === 'tri' ? triangle : ''}</span>`;
+    })
+    .join('')}</div>`;
+
+const monthsBetween = (start, end) => {
+  const [sy, sm] = ym(start);
+  const [ey, em] = ym(end);
+  return (ey - sy) * 12 + (em - sm) + 1;
+};
+const monthSet = (roles) => {
+  const set = new Set();
+  for (const r of roles) {
+    const [sy, sm] = ym(r.start);
+    const [ey, em] = ym(r.end || r.start);
+    for (let i = sy * 12 + sm; i <= ey * 12 + em; i++) set.add(i);
+  }
+  return set;
+};
+// Experience accumulated up to a date (unique months, no double counting).
+const cumulativeUntil = (end) => {
+  const [ey, em] = ym(end);
+  const limit = ey * 12 + em;
+  return [...monthSet(experience.flatMap((g) => g.roles))].filter((i) => i <= limit).length;
+};
+// 56 months → "4.5+", 51 → "4+", 24 → "2"
+const halfYears = (months) => {
+  const h = Math.floor((months / 12) * 2) / 2;
+  const txt = Number.isInteger(h) ? String(h) : h.toFixed(1);
+  return h * 12 < months ? `${txt}+` : txt;
+};
+const fmtMonths = (total, L) => {
+  const y = Math.floor(total / 12);
+  const m = total % 12;
+  const parts = [];
+  if (y) parts.push(`${y} ${y === 1 ? L.dur.y : L.dur.ys}`);
+  if (m) parts.push(`${m} ${m === 1 ? L.dur.m : L.dur.ms}`);
+  return parts.join(' ');
+};
+
 // ---------- icon sprite (authored, single 1.75 stroke) ----------
 const sprite = `
 <svg xmlns="http://www.w3.org/2000/svg" class="sprite" aria-hidden="true">
@@ -54,6 +105,7 @@ const sprite = `
   <symbol id="i-menu" viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h10"/></symbol>
   <symbol id="i-pin" viewBox="0 0 24 24"><path d="M12 21s-6.5-5.6-6.5-11a6.5 6.5 0 1 1 13 0c0 5.4-6.5 11-6.5 11z"/><circle cx="12" cy="10" r="2.3"/></symbol>
   <symbol id="i-zoom" viewBox="0 0 24 24"><circle cx="10.5" cy="10.5" r="6"/><path d="m15 15 5 5M10.5 8v5M8 10.5h5"/></symbol>
+  <symbol id="i-cloud" viewBox="0 0 24 24"><path d="M7 18.5h10.5a4 4 0 0 0 .6-7.95A6 6 0 0 0 6.6 9.2 4.7 4.7 0 0 0 7 18.5z"/></symbol>
   <symbol id="i-shield" viewBox="0 0 24 24"><path d="M12 3 5 6v5.5c0 4.3 3 8 7 9.5 4-1.5 7-5.2 7-9.5V6z"/><path d="m9 12 2.2 2.2L15.5 10"/></symbol>
 </svg>`;
 
@@ -67,8 +119,7 @@ function head(lang, L) {
     name: site.name,
     url: site.url,
     image: `${site.url}/assets/img/og-image.jpg`,
-    jobTitle: 'Customer Engineer',
-    worksFor: { '@type': 'Organization', name: 'Xertica.ai' },
+    jobTitle: 'Cloud Solutions Architect',
     alumniOf: { '@type': 'CollegeOrUniversity', name: 'Instituto Politécnico Nacional (UPIICSA)' },
     address: { '@type': 'PostalAddress', addressLocality: 'Ciudad de México', addressCountry: 'MX' },
     sameAs: [site.linkedin],
@@ -160,11 +211,12 @@ function hero(lang, L) {
   const badges = certifications
     .map((c) => `<img src="/assets/img/badges/${c.slug}.webp" alt="" width="44" height="44" decoding="async">`)
     .join('');
-  return `<section class="hero" id="top" aria-labelledby="hero-name">
+  return `<section class="hero" id="top" aria-labelledby="hero-name" data-neon>
+  ${neon('hero')}
   <div class="container hero-grid">
     <div class="hero-copy">
       <h1 class="hero-name" id="hero-name"><span class="line">Adrián</span> <span class="line">García Juárez</span></h1>
-      <p class="hero-role">${esc(H.role)}</p>
+      <p class="hero-role"><span>${esc(H.role)}</span><span class="status-pill"><span class="status-dot" aria-hidden="true"></span>${esc(H.status)}</span></p>
       <p class="hero-tagline">${esc(H.tagline)}</p>
       <p class="hero-lede">${esc(H.lede)}</p>
       <div class="hero-actions">
@@ -187,9 +239,7 @@ function hero(lang, L) {
         </picture>
       </div>
       <figcaption class="portrait-chip chip-location">${icon('pin')}<span>${esc(H.location)}</span></figcaption>
-      <div class="portrait-chip chip-company" aria-hidden="true">
-        <img src="/assets/img/logos/xertica-logo.webp" alt="" width="84" height="15" class="logo-ink">
-      </div>
+      <div class="portrait-chip chip-company" aria-hidden="true">${icon('cloud')}<span>Cloud Solutions Architect</span></div>
     </figure>
   </div>
 </section>`;
@@ -217,6 +267,36 @@ function about(lang, L) {
 </section>`;
 }
 
+// Company logo with an optional dark-theme variant (two <img>, CSS picks one
+// from [data-theme]; the hidden one is display:none so it is never fetched eagerly).
+const logoImg = (logo, alt, hasDark, invert) => {
+  const base = `tl-logo tl-logo-${logo}`;
+  const light = `<img class="${base}${invert ? ' logo-ink' : ''}${hasDark ? ' logo-light' : ''}" src="/assets/img/logos/${logo}-logo.webp" alt="${esc(alt)}" decoding="async" loading="lazy">`;
+  if (!hasDark) return light;
+  return `${light}<img class="${base} logo-dark" src="/assets/img/logos/${logo}-logo-dark.webp" alt="${esc(alt)}" decoding="async" loading="lazy">`;
+};
+
+function careerSummary(lang, L) {
+  const E = L.exp;
+  const all = experience.flatMap((g) => g.roles);
+  const start = all.map((r) => r.start).sort()[0];
+  const end = all.map((r) => r.end).filter(Boolean).sort().at(-1);
+  const byCompany = new Map();
+  for (const g of experience) {
+    const prev = byCompany.get(g.company);
+    byCompany.set(g.company, { color: g.color, roles: [...(prev ? prev.roles : []), ...g.roles] });
+  }
+  for (const v of byCompany.values()) v.months = monthSet(v.roles).size;
+  const legend = [...byCompany]
+    .map(([name, v]) => `<li class="c-${v.color}"><span class="legend-swatch"></span><strong>${esc(name)}</strong> ${esc(fmtMonths(v.months, L))}</li>`)
+    .join('');
+  return `<div class="career-summary reveal">
+      <p class="career-total"><strong>${esc(halfYears(cumulativeUntil(end)))}</strong><span>${esc(E.total)}</span></p>
+      <p class="career-range"><time datetime="${start}">${fmtMonth(start, L)}</time> – <time datetime="${end}">${fmtMonth(end, L)}</time></p>
+      <ul class="career-legend">${legend}<li class="c-${education.color}"><span class="legend-swatch"></span><strong>IPN</strong> ${esc(E.education)}</li></ul>
+    </div>`;
+}
+
 function timeline(lang, L) {
   const E = L.exp;
   const ids = anchors(lang);
@@ -224,7 +304,9 @@ function timeline(lang, L) {
     .map((g, gi) => {
       const first = g.roles[g.roles.length - 1].start;
       const last = g.roles[0].end;
-      const range = `${first.slice(0, 4)} – ${last ? last.slice(0, 4) : E.present}`;
+      const y1 = first.slice(0, 4);
+      const y2 = last ? last.slice(0, 4) : E.present;
+      const range = y1 === y2 ? y1 : `${y1} – ${y2}`;
       const roles = g.roles
         .map((r) => {
           const dur = duration(r.start, r.end, L);
@@ -248,18 +330,28 @@ function timeline(lang, L) {
           </li>`;
         })
         .join('');
-      return `<li class="tl-group" data-group="${gi}">
+      const tenure = fmtMonths(monthSet(g.roles).size, L);
+      const acc = halfYears(cumulativeUntil(last || first));
+      return `<li class="tl-group c-${g.color}" data-group="${gi}">
+        <div class="tl-ruler" aria-hidden="true">
+          <span class="ruler-year">${esc(acc)} <small>${esc(E.yearsWord)}</small></span>
+          <span class="ruler-tenure">${esc(tenure)}</span>
+        </div>
         <div class="tl-company">
-          <img class="tl-logo tl-logo-${g.logo}${g.invertOnDark ? ' logo-ink' : ''}" src="/assets/img/logos/${g.logo}-logo.webp" alt="${esc(g.company)}" height="28" decoding="async" loading="lazy">
+          ${logoImg(g.logo, g.company, g.logoDark, g.invertOnDark)}
           <span class="tl-range">${esc(range)}</span>
         </div>
         <ol class="tl-roles">${roles}</ol>
       </li>`;
     })
     .join('');
-  const edu = `<li class="tl-group tl-edu" data-group="edu">
+  const edu = `<li class="tl-group tl-edu c-${education.color}" data-group="edu">
+        <div class="tl-ruler" aria-hidden="true">
+          <span class="ruler-year">${esc(education.year)}</span>
+          <span class="ruler-tenure">${esc(E.start)}</span>
+        </div>
         <div class="tl-company">
-          <img class="tl-logo tl-logo-ipn" src="/assets/img/logos/${education.logo}-logo.webp" alt="Instituto Politécnico Nacional" height="44" decoding="async" loading="lazy">
+          ${logoImg(education.logo, 'Instituto Politécnico Nacional', education.logoDark, false)}
           <span class="tl-range">${esc(E.education)}</span>
         </div>
         <ol class="tl-roles">
@@ -274,12 +366,14 @@ function timeline(lang, L) {
           </li>
         </ol>
       </li>`;
-  return `<section class="section experience" id="${ids.experience}" aria-labelledby="exp-title">
+  return `<section class="section experience" id="${ids.experience}" aria-labelledby="exp-title" data-neon>
+  ${neon('exp')}
   <div class="container">
     <div class="section-head reveal">
       <h2 class="section-title" id="exp-title">${esc(E.title)}</h2>
       <p class="section-intro">${esc(E.intro)}</p>
     </div>
+    ${careerSummary(lang, L)}
     <div class="timeline" data-timeline>
       <div class="tl-rail" aria-hidden="true"><span class="tl-rail-fill" data-rail-fill></span></div>
       <ol class="tl-groups">${groups}${edu}</ol>
@@ -309,7 +403,8 @@ function certs(lang, L) {
       </li>`
     )
     .join('');
-  return `<section class="section certs" id="${ids.certs}" aria-labelledby="certs-title">
+  return `<section class="section certs" id="${ids.certs}" aria-labelledby="certs-title" data-neon>
+  ${neon('certs')}
   <div class="container">
     <div class="section-head reveal">
       <h2 class="section-title" id="certs-title">${esc(C.title)}</h2>
@@ -343,7 +438,8 @@ function contact(lang, L) {
   const C = L.contact;
   const ids = anchors(lang);
   return `<section class="section contact" id="${ids.contact}" aria-labelledby="contact-title">
-  <div class="container contact-inner reveal">
+  <div class="container contact-inner reveal" data-neon>
+    ${neon('contact')}
     <h2 class="contact-title" id="contact-title">${esc(C.title)}</h2>
     <p class="contact-body">${esc(C.body)}</p>
     <div class="contact-email">

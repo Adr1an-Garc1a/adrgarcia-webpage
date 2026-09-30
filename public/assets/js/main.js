@@ -262,6 +262,28 @@ function initParallax() {
   );
 }
 
+/* ---------- neon shapes: gentle pointer parallax ---------- */
+function initNeon() {
+  if (!finePointer.matches || reduceMotion.matches) return;
+  $$('[data-neon]').forEach((sec) => {
+    let raf = 0;
+    sec.addEventListener('pointermove', (e) => {
+      const r = sec.getBoundingClientRect();
+      const x = ((e.clientX - r.left) / r.width - 0.5) * 2;
+      const y = ((e.clientY - r.top) / r.height - 0.5) * 2;
+      cancelAnimationFrame(raf);
+      raf = requestAnimationFrame(() => {
+        sec.style.setProperty('--px', x.toFixed(3));
+        sec.style.setProperty('--py', y.toFixed(3));
+      });
+    });
+    sec.addEventListener('pointerleave', () => {
+      sec.style.setProperty('--px', '0');
+      sec.style.setProperty('--py', '0');
+    });
+  });
+}
+
 /* ---------- toast ---------- */
 let toastTimer;
 function toast(msg) {
@@ -386,5 +408,6 @@ initReveal();
 initTimeline();
 initTilt();
 initParallax();
+initNeon();
 initCopy();
 initViewer();

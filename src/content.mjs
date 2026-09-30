@@ -15,18 +15,19 @@ export const t = {
     htmlLang: 'es-MX',
     ogLocale: 'es_MX',
     path: '/',
-    title: 'Adrián García Juárez — Customer Engineer · Google Cloud',
+    title: 'Adrián García Juárez — Cloud Solutions Architect · Google Cloud',
     description:
-      'Customer Engineer en Xertica.ai con 6 certificaciones vigentes de Google Cloud. Arquitectura cloud, ingeniería de datos, seguridad y preventa técnica en CDMX.',
+      'Cloud Solutions Architect con 6 certificaciones vigentes de Google Cloud y más de 4 años y medio de experiencia en arquitectura cloud, datos, seguridad y preventa técnica. CDMX, disponible para nuevas oportunidades.',
     skip: 'Saltar al contenido',
     nav: { about: 'Perfil', experience: 'Experiencia', certs: 'Certificaciones', skills: 'Habilidades', contact: 'Contacto' },
     menu: 'Menú',
     langSwitch: { label: 'English', short: 'EN', aria: 'Ver el sitio en inglés' },
     theme: { toLight: 'Cambiar a tema claro', toDark: 'Cambiar a tema oscuro' },
     hero: {
-      role: 'Customer Engineer en Xertica.ai',
+      role: 'Cloud Solutions Architect',
+      status: 'Disponible para nuevas oportunidades',
       tagline: 'Diseño arquitecturas en Google Cloud y las convierto en resultados de negocio.',
-      lede: 'Cuatro años entre la consola y la sala de juntas: migraciones, pipelines de datos, seguridad y FinOps, explicados en el idioma de quien decide.',
+      lede: 'Más de cuatro años y medio entre la consola y la sala de juntas: migraciones, pipelines de datos, seguridad y FinOps, explicados en el idioma de quien decide.',
       ctaPrimary: 'Escríbeme',
       ctaCv: 'Ver CV',
       proof: '6 certificaciones Google Cloud vigentes',
@@ -37,7 +38,7 @@ export const t = {
     about: {
       title: 'Perfil',
       body: [
-        'Soy Ingeniero en Informática egresado del Instituto Politécnico Nacional (UPIICSA) y arquitecto de soluciones certificado en Google Cloud. Mi carrera empezó aprovisionando proyectos en GCP y hoy acompaño a empresas desde el discovery técnico hasta la prueba de concepto.',
+        'Soy Ingeniero en Informática egresado del Instituto Politécnico Nacional (UPIICSA) y arquitecto de soluciones certificado en Google Cloud. Mi carrera empezó aprovisionando proyectos en GCP y he acompañado a empresas desde el discovery técnico hasta la prueba de concepto. Hoy busco mi siguiente reto como Cloud Solutions Architect.',
         'Me especializo en migración de infraestructura, pipelines de ingeniería de datos y arquitectura de seguridad. Traduzco requerimientos técnicos en propuestas de valor con foco en optimización de consumo (FinOps), para que la decisión sea clara y el cierre, más rápido.',
       ],
       facts: [
@@ -52,6 +53,12 @@ export const t = {
       title: 'Experiencia',
       intro: 'De la infraestructura a la estrategia técnica comercial. Selecciona un puesto para ver el detalle.',
       present: 'Actualidad',
+      total: 'años de experiencia',
+      since: 'desde',
+      start: 'Inicio',
+      today: 'Hoy',
+      tenure: 'en la empresa',
+      yearsWord: 'años',
       more: 'Ver logros',
       less: 'Ocultar logros',
       education: 'Formación',
@@ -68,8 +75,8 @@ export const t = {
     },
     skills: { title: 'Habilidades' },
     contact: {
-      title: '¿Construimos algo en la nube?',
-      body: 'Preventa, arquitectura, una PoC o una conversación sobre tu próximo proyecto en Google Cloud. Respondo en español o inglés.',
+      title: '¿Buscas un Cloud Solutions Architect?',
+      body: 'Estoy disponible para nuevas oportunidades en arquitectura cloud, preventa técnica o Customer Engineering en Google Cloud. Escríbeme y platicamos; respondo en español o inglés.',
       email: 'Escríbeme',
       copy: 'Copiar correo',
       copied: 'Correo copiado',
@@ -96,18 +103,19 @@ export const t = {
     htmlLang: 'en',
     ogLocale: 'en_US',
     path: '/en/',
-    title: 'Adrián García Juárez — Customer Engineer · Google Cloud',
+    title: 'Adrián García Juárez — Cloud Solutions Architect · Google Cloud',
     description:
-      'Customer Engineer at Xertica.ai holding 6 active Google Cloud certifications. Cloud architecture, data engineering, security and technical presales in Mexico City.',
+      'Cloud Solutions Architect holding 6 active Google Cloud certifications with 4.5+ years in cloud architecture, data, security and technical presales. Mexico City, open to new opportunities.',
     skip: 'Skip to content',
     nav: { about: 'Profile', experience: 'Experience', certs: 'Certifications', skills: 'Skills', contact: 'Contact' },
     menu: 'Menu',
     langSwitch: { label: 'Español', short: 'ES', aria: 'View the site in Spanish' },
     theme: { toLight: 'Switch to light theme', toDark: 'Switch to dark theme' },
     hero: {
-      role: 'Customer Engineer at Xertica.ai',
+      role: 'Cloud Solutions Architect',
+      status: 'Open to new opportunities',
       tagline: 'I design Google Cloud architectures and turn them into business outcomes.',
-      lede: 'Four years between the console and the boardroom: migrations, data pipelines, security and FinOps, explained in the language of whoever signs off.',
+      lede: 'Over four and a half years between the console and the boardroom: migrations, data pipelines, security and FinOps, explained in the language of whoever signs off.',
       ctaPrimary: 'Get in touch',
       ctaCv: 'View CV',
       proof: '6 active Google Cloud certifications',
@@ -118,7 +126,7 @@ export const t = {
     about: {
       title: 'Profile',
       body: [
-        'I am an Informatics Engineer from Mexico’s Instituto Politécnico Nacional (UPIICSA) and a Google Cloud certified solutions architect. I started out provisioning GCP projects; today I guide companies from technical discovery all the way to a working proof of concept.',
+        'I am an Informatics Engineer from Mexico’s Instituto Politécnico Nacional (UPIICSA) and a Google Cloud certified solutions architect. I started out provisioning GCP projects; since then I have guided companies from technical discovery all the way to a working proof of concept. I am now looking for my next challenge as a Cloud Solutions Architect.',
         'I specialize in infrastructure migration, data engineering pipelines and security architecture. I translate technical requirements into value propositions focused on consumption optimization (FinOps), so the decision is clear and the deal closes faster.',
       ],
       facts: [
@@ -133,6 +141,12 @@ export const t = {
       title: 'Experience',
       intro: 'From infrastructure to technical sales strategy. Select a role to see the details.',
       present: 'Present',
+      total: 'years of experience',
+      since: 'since',
+      start: 'Start',
+      today: 'Today',
+      tenure: 'at the company',
+      yearsWord: 'yrs',
       more: 'Show results',
       less: 'Hide results',
       education: 'Education',
@@ -149,8 +163,8 @@ export const t = {
     },
     skills: { title: 'Skills' },
     contact: {
-      title: 'Shall we build something in the cloud?',
-      body: 'Presales, architecture, a PoC or a conversation about your next Google Cloud project. I reply in English or Spanish.',
+      title: 'Looking for a Cloud Solutions Architect?',
+      body: 'I am open to new opportunities in cloud architecture, technical presales or Customer Engineering on Google Cloud. Drop me a line; I reply in English or Spanish.',
       email: 'Email me',
       copy: 'Copy email',
       copied: 'Email copied',
@@ -180,12 +194,13 @@ export const experience = [
   {
     company: 'Xertica.ai',
     logo: 'xertica',
+    color: 'green',
     invertOnDark: true,
     roles: [
       {
         id: 'xertica-ce',
         start: '2026-06',
-        end: null,
+        end: '2026-09',
         title: { es: 'Customer Engineer', en: 'Customer Engineer' },
         summary: {
           es: 'Arquitectura de soluciones y demostraciones técnicas para las unidades de negocio de Xertica.',
@@ -193,14 +208,14 @@ export const experience = [
         },
         points: {
           es: [
-            'Desarrollo y presento **pruebas de concepto** y demos en vivo que validan la factibilidad de la arquitectura ante tomadores de decisión.',
-            'Lidero discovery técnico, alcance y diseño de soluciones en **Google Workspace, Infraestructura, Datos, Seguridad e IA**.',
-            'Trabajo a diario con ventas para destrabar objeciones técnicas, validar requerimientos y avanzar oportunidades en el pipeline.',
+            'Desarrollé y presenté **pruebas de concepto** y demos en vivo que validan la factibilidad de la arquitectura ante tomadores de decisión.',
+            'Lideré discovery técnico, alcance y diseño de soluciones en **Google Workspace, Infraestructura, Datos, Seguridad e IA**.',
+            'Trabajé a diario con ventas para destrabar objeciones técnicas, validar requerimientos y avanzar oportunidades en el pipeline.',
           ],
           en: [
-            'Build and deliver hands-on **proofs of concept** and live demos that validate architectural feasibility for client decision-makers.',
-            'Drive technical discovery, scoping and solution design across **Google Workspace, Infrastructure, Data, Security and AI**.',
-            'Partner daily with sales to unblock technical objections, validate requirements and move deals through the pipeline.',
+            'Built and delivered hands-on **proofs of concept** and live demos that validate architectural feasibility for client decision-makers.',
+            'Drove technical discovery, scoping and solution design across **Google Workspace, Infrastructure, Data, Security and AI**.',
+            'Partnered daily with sales to unblock technical objections, validate requirements and move deals through the pipeline.',
           ],
         },
         tags: ['PoCs', 'Discovery', 'Workspace', 'GenAI'],
@@ -210,6 +225,8 @@ export const experience = [
   {
     company: 'Servinformación',
     logo: 'servinformacion',
+    logoDark: true,
+    color: 'blue',
     invertOnDark: false,
     roles: [
       {
@@ -265,6 +282,7 @@ export const experience = [
   {
     company: 'Xertica.ai',
     logo: 'xertica',
+    color: 'green',
     invertOnDark: true,
     roles: [
       {
@@ -321,6 +339,8 @@ export const experience = [
 
 export const education = {
   logo: 'ipn',
+  logoDark: true,
+  color: 'orange',
   school: 'UPIICSA · Instituto Politécnico Nacional',
   year: '2022',
   degree: { es: 'Ingeniería en Informática', en: 'B.Sc. Computer Science (Informatics Engineering)' },

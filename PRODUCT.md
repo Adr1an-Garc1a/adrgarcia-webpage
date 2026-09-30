@@ -18,7 +18,7 @@ Plain static HTML/CSS/JS (ES modules, no framework, no runtime dependencies). Th
 
 ## Product Purpose
 
-Personal brand site for Adrián García Juárez, Google Cloud Customer Engineer at Xertica.ai (CDMX). Success = a visitor understands in one viewport who he is and why to trust him, verifies any certification in one click (Credly in a new tab), and contacts him or downloads the CV.
+Personal brand site for Adrián García Juárez, Cloud Solutions Architect (CDMX), open to new opportunities since September 2026 (previously Customer Engineer at Xertica.ai, Jun–Sep 2026). Success = a visitor understands in one viewport who he is and why to trust him, verifies any certification in one click (Credly in a new tab), and contacts him or downloads the CV.
 
 ## Positioning
 
@@ -35,6 +35,10 @@ Visitors arrive from LinkedIn, email signatures, proposals and QR codes at event
 - Certifications link to their Credly public URLs in a new tab (`noopener noreferrer`); certificate PDFs viewable in-page.
 - Strict security headers (CSP without inline script, HSTS, no framing), no third-party trackers, no cookies.
 - Must cost close to zero at low traffic.
+
+## Visual update (Sep 2026)
+
+User asked for more colour and dynamism: phosphorescent/neon floating shapes in green, blue, red, yellow, orange, pink and purple; a colour-coded parallel career ruler (4.5+ years) in the experience timeline. Binding brief; glows are intentional.
 
 ## Brand Commitments
 

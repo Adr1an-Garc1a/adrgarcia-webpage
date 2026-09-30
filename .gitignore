@@ -5,3 +5,6 @@ infra/config.env
 .impeccable/config.local.json
 *.log
 .impeccable/review/
+
+# Local Claude previews (not part of the site)
+Claude outputs/
