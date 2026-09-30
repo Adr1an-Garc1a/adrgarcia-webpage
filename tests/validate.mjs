@@ -110,7 +110,8 @@ for (const p of ['index.html', 'en/index.html']) {
   if (/\.pdf"[^>]*\sdownload\b|href="[^"]*cv[^"]*\.pdf"/i.test(html)) fail(`${p}: CV download link found`);
   // Every "email me" link opens a draft addressed to the right inbox.
   const mails = [...html.matchAll(/href="(mailto:[^"]+)"/g)].map((m) => m[1].replaceAll('&amp;', '&'));
-  if (mails.length < 2) fail(`${p}: expected mailto links in hero and contact`);
+  if (mails.length < 2) fail(`${p}: expected mailto links in the contact section`);
+  if (!/class="hero-actions">[\s\S]*?mail\.google\.com\/mail\/\?view=cm/.test(html)) fail(`${p}: hero is missing the Gmail compose button`);
   for (const m of mails) {
     const u = new URL(m);
     if (u.pathname !== 'gadrianjua@gmail.com' || !u.searchParams.get('subject')) fail(`${p}: bad mailto ${m}`);

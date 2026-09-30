@@ -65,11 +65,11 @@ export const t = {
       ],
       facts: [
         { k: 'Base', v: 'CDMX, México' },
-        { k: 'Formación', v: 'Ing. en Informática · UPIICSA-IPN, 2022' },
+        { k: 'Formación', v: 'Ing. en Informática · UPIICSA-IPN, 2018\u2060–\u20602022' },
         { k: 'Idiomas', v: 'Español nativo · Inglés C1' },
         { k: 'Enfoque', v: 'Infraestructura, Datos, Seguridad e IA' },
       ],
-      sceneAlt: 'Adrián en un bosque de coníferas bajo cielo despejado.',
+      sceneAlt: 'Adrián sonriendo a la orilla de un río, con un cerro cubierto de bosque al fondo.',
     },
     exp: {
       title: 'Experiencia',
@@ -183,11 +183,11 @@ export const t = {
       ],
       facts: [
         { k: 'Based in', v: 'Mexico City, Mexico' },
-        { k: 'Education', v: 'B.Sc. Computer Science · UPIICSA-IPN, 2022' },
+        { k: 'Education', v: 'B.Sc. Computer Science · UPIICSA-IPN, 2018\u2060–\u20602022' },
         { k: 'Languages', v: 'Spanish (native) · English C1' },
         { k: 'Focus', v: 'Infrastructure, Data, Security & AI' },
       ],
-      sceneAlt: 'Adrián in a conifer forest under a clear sky.',
+      sceneAlt: 'Adrián smiling on a riverbank, with a forested hill behind him.',
     },
     exp: {
       title: 'Experience',
@@ -429,6 +429,7 @@ export const education = {
   logoDark: true,
   color: 'orange',
   school: 'UPIICSA · Instituto Politécnico Nacional',
+  start: '2018',
   year: '2022',
   degree: { es: 'Ingeniería en Informática', en: 'B.Sc. Computer Science (Informatics Engineering)' },
 };

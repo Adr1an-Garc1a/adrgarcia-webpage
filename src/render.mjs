@@ -231,7 +231,7 @@ function hero(lang, L) {
       <p class="hero-tagline">${esc(H.tagline)}</p>
       <p class="hero-lede">${esc(H.lede)}</p>
       <div class="hero-actions">
-        <a class="btn btn-primary" href="${esc(mailto(L))}" data-mailto>${icon('mail')}<span>${esc(H.ctaPrimary)}</span></a>
+        <a class="btn btn-primary" href="${esc(gmail(L))}" ${ext}>${icon('mail')}<span>${esc(L.contact.gmail)}</span><span class="visually-hidden"> ${esc(L.certs.newTab)}</span></a>
         <a class="btn btn-secondary" href="${site.linkedin}" ${ext}>${icon('linkedin')}<span>${esc(H.ctaLinkedin)}</span><span class="visually-hidden"> ${esc(L.certs.newTab)}</span></a>
       </div>
       <a class="hero-proof" href="#${ids.certs}">
@@ -317,7 +317,7 @@ function careerSummary(lang, L) {
   return `<div class="career-summary reveal">
       <p class="career-total"><strong>${esc(halfYears(cumulativeUntil(end)))}</strong><span>${esc(E.total)}</span></p>
       <p class="career-range"><time datetime="${start}">${fmtMonth(start, L)}</time> – <time datetime="${end}">${fmtMonth(end, L)}</time></p>
-      <ul class="career-legend">${legend}<li class="c-${education.color}"><span class="legend-swatch"></span><strong>IPN</strong> ${esc(E.education)}</li></ul>
+      <ul class="career-legend">${legend}<li class="c-${education.color}"><span class="legend-swatch"></span><strong>IPN</strong> ${education.start} – ${education.year}</li></ul>
     </div>`;
 }
 
@@ -382,12 +382,12 @@ function timeline(lang, L) {
     .join('');
   const edu = `<li class="tl-group tl-edu c-${education.color}" data-group="edu">
         <div class="tl-ruler" aria-hidden="true">
-          <span class="ruler-year">${esc(education.year)}</span>
+          <span class="ruler-year">${esc(education.start)}</span>
           <span class="ruler-tenure">${esc(E.start)}</span>
         </div>
         <div class="tl-company">
           ${logoImg(education.logo, 'Instituto Politécnico Nacional', education.logoDark, false)}
-          <span class="tl-range">${esc(E.education)}</span>
+          <span class="tl-range">${esc(education.start)} – ${esc(education.year)}</span>
         </div>
         <ol class="tl-roles">
           <li class="tl-role reveal">
@@ -395,7 +395,7 @@ function timeline(lang, L) {
             <article class="role-card role-card-edu">
               <header class="role-head">
                 <h3 class="role-title">${esc(education.degree[lang])}</h3>
-                <p class="role-meta">${esc(education.school)} · <time datetime="${education.year}">${education.year}</time></p>
+                <p class="role-meta">${esc(education.school)} · <time datetime="${education.start}">${education.start}</time> – <time datetime="${education.year}">${education.year}</time> <span class="role-dur">· ${esc(E.education)}</span></p>
               </header>
             </article>
           </li>
