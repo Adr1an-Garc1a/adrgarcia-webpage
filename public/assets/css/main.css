@@ -1242,7 +1242,18 @@ main:focus {
   font-size: var(--fs-md);
   line-height: 1.3;
   letter-spacing: -0.02em;
-  transform: translateZ(24px);
+  /* no transform here: it would become the containing block of the
+     stretched link below and shrink it to the title */
+}
+/* decorative layers let clicks fall through to the stretched Credly link */
+.cert-badge,
+.cert-level,
+.cert-dates,
+.cert-actions {
+  pointer-events: none;
+}
+.cert-view {
+  pointer-events: auto;
 }
 .cert-link {
   text-decoration: none;
