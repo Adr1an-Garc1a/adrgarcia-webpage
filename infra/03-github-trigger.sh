@@ -72,4 +72,4 @@ else
     --quiet
 fi
 ok "CI/CD listo: cada push a '${BRANCH}' construye, prueba y despliega."
-echo "Siguiente paso:  infra/04-domain-dns.sh"
+echo "Siguiente paso:  infra/04-domain-hostinger.sh"

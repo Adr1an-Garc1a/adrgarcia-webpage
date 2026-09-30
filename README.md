@@ -49,9 +49,9 @@ cp infra/config.env.example infra/config.env   # edítalo
 bash infra/01-bootstrap.sh
 bash infra/02-first-deploy.sh
 bash infra/03-github-trigger.sh
-bash infra/04-domain-dns.sh zone    # luego cambia nameservers en Hostinger
-bash infra/04-domain-dns.sh verify
-bash infra/04-domain-dns.sh map
+bash infra/04-domain-hostinger.sh verify   # TXT en Hostinger
+bash infra/04-domain-hostinger.sh map      # crea mapeos e imprime los registros para hPanel
+bash infra/04-domain-hostinger.sh status
 bash infra/05-budget-alerts.sh      # opcional
 ```
 

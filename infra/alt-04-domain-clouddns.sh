@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# 04 — Custom domain: Cloud DNS zone + Cloud Run domain mappings for
+# ALTERNATIVE (not used): Cloud DNS instead of Hostinger DNS. Custom domain: Cloud DNS zone + Cloud Run domain mappings for
 #      adrgarcia.com and www.adrgarcia.com (managed HTTPS certificate included).
 #
 # Run it in phases (it is idempotent, re-run until everything is ✔):
@@ -46,7 +46,7 @@ phase_zone() {
   log "Nameservers que debes poner en Hostinger (Dominios → ${DOMAIN} → DNS / Nameservers):"
   gcloud dns managed-zones describe "$DNS_ZONE" --format='value(nameServers)' | tr ';' '\n' | sed 's/\.$//; s/^/    /'
   echo
-  echo "Luego ejecuta:  infra/04-domain-dns.sh verify"
+  echo "Luego ejecuta:  infra/alt-04-domain-clouddns.sh verify"
 }
 
 phase_verify() {
@@ -66,7 +66,7 @@ phase_verify() {
   echo "minutos a 48 h) y pulsa 'Verificar' en Search Console. Comprueba con:"
   echo "    dig +short NS ${DOMAIN}      ·      dig +short TXT ${DOMAIN}"
   echo
-  echo "Cuando Search Console confirme, ejecuta:  infra/04-domain-dns.sh map"
+  echo "Cuando Search Console confirme, ejecuta:  infra/alt-04-domain-clouddns.sh map"
 }
 
 map_one() { # domain
@@ -96,12 +96,12 @@ map_one() { # domain
 
 phase_map() {
   gcloud domains list-user-verified --format='value(id)' | grep -qx "$DOMAIN" \
-    || die "Primero verifica el dominio:  infra/04-domain-dns.sh verify"
+    || die "Primero verifica el dominio:  infra/alt-04-domain-clouddns.sh verify"
   map_one "$DOMAIN"
   map_one "www.${DOMAIN}"
   echo
   ok "Registros creados. Google emitirá el certificado HTTPS automáticamente (15 min – 24 h)."
-  echo "Revisa el avance con:  infra/04-domain-dns.sh status"
+  echo "Revisa el avance con:  infra/alt-04-domain-clouddns.sh status"
 }
 
 phase_status() {

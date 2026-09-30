@@ -18,7 +18,8 @@ load_config() {
   [[ -f "$cfg" ]] || die "No existe infra/config.env. Copia infra/config.env.example y complétalo."
   # shellcheck disable=SC1090
   source "$cfg"
-  : "${PROJECT_ID:?}" "${REGION:?}" "${SERVICE:?}" "${REPO:?}" "${DOMAIN:?}" "${DNS_ZONE:?}"
+  : "${PROJECT_ID:?}" "${REGION:?}" "${SERVICE:?}" "${REPO:?}" "${DOMAIN:?}"
+  DNS_ZONE="${DNS_ZONE:-}"   # only used by the optional Cloud DNS variant
   require gcloud
   gcloud config set project "$PROJECT_ID" >/dev/null 2>&1
   PROJECT_NUMBER="$(gcloud projects describe "$PROJECT_ID" --format='value(projectNumber)')"

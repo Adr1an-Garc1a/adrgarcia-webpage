@@ -1,112 +1,95 @@
-# Apuntar adrgarcia.com (Hostinger) a Cloud Run usando Cloud DNS
+# Apuntar adrgarcia.com a Cloud Run con el DNS de Hostinger
 
-Hostinger seguirá siendo el **registrador** (ahí renuevas el dominio), pero las respuestas DNS las dará **Cloud DNS**. El orden importa: sigue los pasos tal cual.
+Hostinger sigue siendo el **registrador y el administrador de DNS**. No se cambian nameservers, así que tu correo y los demás registros quedan intactos. En Google solo se crean los *domain mappings* de Cloud Run, que incluyen el certificado HTTPS gratis.
 
-## Paso 0 — Inventario (5 min, evita perder tu correo)
+> Requisito: el servicio `adrgarcia-web` ya desplegado (`infra/02-first-deploy.sh`).
+> Ejecuta los comandos en Cloud Shell, desde la carpeta del repo.
 
-En hPanel → **Dominios → adrgarcia.com → DNS / Nameservers → Registros DNS**, anota todo lo que no sea el sitio web:
-
-- `MX` (correo de Hostinger, Google Workspace, etc.)
-- `TXT` de SPF (`v=spf1 …`), DKIM y DMARC (`_dmarc`)
-- Cualquier `CNAME` o `TXT` de verificación de otros servicios
-
-Si no usas correo con este dominio, puedes saltarte esto.
-
-## Paso 1 — Crear la zona en Cloud DNS
+## Paso 1: Verificar que el dominio es tuyo
 
 ```bash
-bash infra/04-domain-dns.sh zone
+bash infra/04-domain-hostinger.sh verify
 ```
 
-La salida muestra 4 nameservers, parecidos a estos:
+1. Se abre **Google Search Console** con la cuenta activa de `gcloud` (`gadrian999@gmail.com`). Elige **Proveedor de nombres de dominio → Otro** y copia el valor `google-site-verification=…`.
+2. En **hPanel → Dominios → adrgarcia.com → DNS / Nameservers → Registros DNS → Agregar registro**, llena:
+   - Tipo: `TXT`
+   - Nombre: `@`
+   - Valor: `google-site-verification=…`
+   - TTL: `300`
+3. Espera 5–15 minutos, comprueba con `dig +short TXT adrgarcia.com` y pulsa **Verificar** en Search Console.
 
-```
-ns-cloud-a1.googledomains.com
-ns-cloud-a2.googledomains.com
-ns-cloud-a3.googledomains.com
-ns-cloud-a4.googledomains.com
-```
+Deja ese TXT para siempre. Si lo borras, Google puede desverificar el dominio.
 
-Copia a Cloud DNS los registros del Paso 0. Ejemplo para el correo de Hostinger (usa **tus** valores):
+## Paso 2: Crear los mapeos y obtener los registros
 
 ```bash
-gcloud dns record-sets create adrgarcia.com. --zone=adrgarcia-com --type=MX --ttl=3600 \
-  --rrdatas="5 mx1.hostinger.com.,10 mx2.hostinger.com."
-gcloud dns record-sets create adrgarcia.com. --zone=adrgarcia-com --type=TXT --ttl=3600 \
-  --rrdatas='"v=spf1 include:_spf.mail.hostinger.com ~all"'
+bash infra/04-domain-hostinger.sh map
 ```
 
-## Paso 2 — Cambiar los nameservers en Hostinger
+El script crea los mapeos para `adrgarcia.com` y `www.adrgarcia.com`, e imprime la tabla exacta de registros. Normalmente es esta:
 
-1. hPanel → **Dominios** → `adrgarcia.com` → **DNS / Nameservers**.
-2. **Cambiar nameservers** → *Cambiar a nameservers personalizados*.
-3. Pega los 4 nameservers de Cloud DNS **sin el punto final** y guarda.
-4. Si Hostinger tenía **DNSSEC** activado para el dominio, desactívalo antes. Si no, la resolución falla.
-
-La propagación suele tardar entre 15 minutos y unas horas, con un máximo de 48 h. Compruébalo así:
-
-```bash
-dig +short NS adrgarcia.com     # debe listar ns-cloud-*.googledomains.com
-```
-
-## Paso 3 — Verificar que el dominio es tuyo (Google Search Console)
-
-```bash
-bash infra/04-domain-dns.sh verify
-```
-
-1. Se abre Search Console. Elige **Proveedor de nombres de dominio → Otro** y copia el valor `google-site-verification=…`.
-2. Pégalo en la terminal. El script crea el `TXT` en Cloud DNS, no en Hostinger.
-3. Cuando `dig +short TXT adrgarcia.com` muestre el valor, pulsa **Verificar** en Search Console.
-
-## Paso 4 — Conectar el dominio con Cloud Run
-
-```bash
-bash infra/04-domain-dns.sh map
-```
-
-El script crea los *domain mappings* de `adrgarcia.com` y `www.adrgarcia.com`, y copia a Cloud DNS los registros que pide Cloud Run:
-
-| Nombre | Tipo | Valor |
+| Tipo | Nombre | Valor |
 |---|---|---|
-| `adrgarcia.com.` | A | 216.239.32.21, 216.239.34.21, 216.239.36.21, 216.239.38.21 |
-| `adrgarcia.com.` | AAAA | 2001:4860:4802:32::15, …:34::15, …:36::15, …:38::15 |
-| `www.adrgarcia.com.` | CNAME | `ghs.googlehosted.com.` |
-| `adrgarcia.com.` | CAA | Solo `pki.goog` y `letsencrypt.org` pueden emitir certificados |
+| A | @ | 216.239.32.21 |
+| A | @ | 216.239.34.21 |
+| A | @ | 216.239.36.21 |
+| A | @ | 216.239.38.21 |
+| AAAA | @ | 2001:4860:4802:32::15 |
+| AAAA | @ | 2001:4860:4802:34::15 |
+| AAAA | @ | 2001:4860:4802:36::15 |
+| AAAA | @ | 2001:4860:4802:38::15 |
+| CNAME | www | ghs.googlehosted.com |
 
-Los valores reales los toma el script de `gcloud beta run domain-mappings describe`. La tabla es solo una referencia.
+Usa siempre la tabla que imprime el script; esta es solo una referencia. Si la necesitas de nuevo: `bash infra/04-domain-hostinger.sh records`.
 
-nginx redirige `www` al dominio sin `www` con un 301.
+## Paso 3: Configurar los registros en hPanel
 
-## Paso 5 — Esperar el certificado HTTPS
+En **hPanel → Dominios → adrgarcia.com → Registros DNS**:
+
+1. **Borra** los registros que Hostinger crea por defecto:
+   - `A` con nombre `@` (y `AAAA @` si existe): apuntan al hosting o a la página de estacionamiento de Hostinger.
+   - `CNAME` con nombre `www`: apunta a `adrgarcia.com` o a Hostinger.
+2. **Agrega** los 4 `A`, los 4 `AAAA` y el `CNAME` de la tabla, con TTL `300`.
+3. **No toques** estos registros:
+   - `MX`, y los `TXT` de SPF (`v=spf1…`), DKIM y DMARC (`_dmarc`), si usas correo con el dominio.
+   - El `TXT` `google-site-verification`.
+   - Los registros `NS` y `SOA`.
+4. Si Hostinger tiene activado un **CDN o proxy** para el dominio, desactívalo. Cloud Run necesita que el DNS apunte directo a Google para emitir el certificado.
+
+## Paso 4: Esperar el certificado HTTPS
 
 ```bash
-bash infra/04-domain-dns.sh status
+bash infra/04-domain-hostinger.sh status
 ```
 
-Cuando ambos dominios aparezcan como `Ready = True`, el certificado administrado ya está emitido. Suele tardar unos 15 minutos y puede llegar a 24 h. Después comprueba:
+- El DNS público debe mostrar las IPs `216.239.x.21` y `ghs.googlehosted.com`.
+- Cuando los dos dominios aparezcan con `Ready = True`, el certificado ya está emitido. Suele tardar unos 15 minutos y puede llegar a 24 h.
+
+Prueba final:
 
 ```bash
-curl -sI https://adrgarcia.com | grep -iE "^HTTP|strict-transport|content-security"
+curl -sI https://adrgarcia.com | head -3                  # HTTP/2 200 + cabeceras de seguridad
 curl -sI https://www.adrgarcia.com | grep -i location     # → https://adrgarcia.com/
 ```
 
-## Paso 6 (opcional) — DNSSEC
+nginx redirige `www` al dominio sin `www` con un 301.
 
-Cuando todo funcione, puedes firmar la zona:
+## Opcional: restringir quién emite certificados (CAA)
 
-```bash
-gcloud dns managed-zones update adrgarcia-com --dnssec-state=on
-gcloud dns dns-keys list --zone=adrgarcia-com --filter="type=keySigning" --format="value(ds_record())"
-```
+En hPanel puedes agregar dos registros `CAA` con nombre `@`:
+- `0 issue "pki.goog"`
+- `0 issue "letsencrypt.org"`
 
-Después, en hPanel → **DNSSEC**, agrega el registro DS con los valores de *key tag*, algoritmo, tipo de digest y digest. Un DS incorrecto deja el dominio fuera de línea, así que hazlo con calma y verifica con <https://dnsviz.net>.
+Así solo las autoridades que usa Google pueden emitir certificados para tu dominio. **Si ya tienes otros `CAA`** (por ejemplo, para el SSL de Hostinger), no borres nada; agrega estos dos.
 
 ## Problemas comunes
 
 | Síntoma | Causa probable |
 |---|---|
-| `Domain … is not verified` en el paso 4 | La verificación de Search Console no ha terminado, o la hiciste con otra cuenta de Google distinta a la de `gcloud` |
-| El certificado lleva > 24 h en `CertificatePending` | Hay registros A/AAAA antiguos de Hostinger en caché, o un CAA que no permite `pki.goog` |
-| Dejó de llegar el correo | Faltó copiar los MX/SPF del Paso 0 |
-| `ERR_TOO_MANY_REDIRECTS` | Algún proxy o CDN externo está forzando HTTP. Cloud Run ya sirve HTTPS |
+| `Domain … is not verified` en `map` | Verificaste con otra cuenta de Google. La cuenta de Search Console debe ser la misma que usa `gcloud` (`gcloud config get-value account`) |
+| El certificado sigue en `CertificatePending` después de 24 h | Quedó un `A` viejo de Hostinger en `@`, el CDN de Hostinger está activo, o hay un `CAA` que no permite `pki.goog` |
+| `www` no carga | Falta el `CNAME www → ghs.googlehosted.com`, o todavía existe el CNAME anterior |
+| Dejó de llegar el correo | Borraste un `MX` o un `TXT` de SPF por error. Restáuralo en hPanel |
+
+> ¿Prefieres Cloud DNS algún día? La variante sigue disponible en `infra/alt-04-domain-clouddns.sh`.

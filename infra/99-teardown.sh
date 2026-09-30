@@ -10,7 +10,7 @@ for d in "$DOMAIN" "www.${DOMAIN}"; do gcloud beta run domain-mappings delete --
 gcloud run services delete "$SERVICE" --region="$REGION" --quiet
 gcloud artifacts repositories delete "$REPO" --location="$REGION" --quiet
 gcloud storage rm -r "gs://${PROJECT_ID}-build-src" --quiet
-if gcloud dns managed-zones describe "$DNS_ZONE" >/dev/null 2>&1; then
+if [[ -n "$DNS_ZONE" ]] && gcloud dns managed-zones describe "$DNS_ZONE" >/dev/null 2>&1; then
   gcloud dns record-sets list --zone="$DNS_ZONE" --format='csv[no-heading](name,type)' | while IFS=, read -r n t; do
     [[ "$t" == "NS" || "$t" == "SOA" ]] || gcloud dns record-sets delete "$n" --type="$t" --zone="$DNS_ZONE" --quiet
   done

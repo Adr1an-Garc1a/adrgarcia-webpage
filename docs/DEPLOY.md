@@ -12,7 +12,7 @@ Cloud Build ── docker build ─► validate.mjs (CSP, a11y, links, datos pri
    ▼           deploy
 Cloud Run  (nginx sin root · 256 MiB · 0–2 instancias · escala a cero)
    ▲
-Cloud DNS  adrgarcia.com / www  ◄── nameservers delegados desde Hostinger
+DNS de Hostinger  adrgarcia.com (A/AAAA) · www (CNAME) ──► Cloud Run domain mapping
 ```
 
 ## 0. Requisitos
@@ -37,7 +37,7 @@ Esto hace lo siguiente (puedes volver a ejecutarlo sin riesgo):
 
 | Recurso | Detalle |
 |---|---|
-| APIs | Run, Artifact Registry, Cloud Build, IAM, Cloud DNS y Secret Manager |
+| APIs | Run, Artifact Registry, Cloud Build, IAM y Secret Manager |
 | Artifact Registry `web` | Docker, en `us-central1`, con política de limpieza (5 versiones, >14 días se borran) |
 | SA `web-runtime` | Identidad de Cloud Run **sin ningún rol**: el sitio no llama a APIs |
 | SA `cloudbuild-deployer` | `artifactregistry.writer` (solo en el repo) + `run.developer` + `logging.logWriter` + `serviceAccountUser` (solo sobre `web-runtime`) |
@@ -80,8 +80,8 @@ bash infra/05-budget-alerts.sh    # requiere BILLING_ACCOUNT en config.env
 | Cloud Run | < 2 M solicitudes/mes, 256 MiB, CPU solo durante la solicitud | Dentro de la capa gratuita |
 | Artifact Registry | ~5 imágenes de ~30 MB (≈ 0.15 GB) | Dentro de los 0.5 GB gratis |
 | Cloud Build | ~2 min por build | Capa gratuita: 2,500 min/mes en e2-standard-2 |
-| Cloud DNS | 1 zona + consultas | ≈ USD 0.20 + 0.40 por millón de consultas |
-| **Total** | | **≈ USD 0.20 – 0.50 al mes** |
+| DNS | Administrado en Hostinger | Incluido con tu dominio |
+| **Total** | | **≈ USD 0 – 0.30 al mes** |
 
 Las tablas de precios cambian. Revísalas en <https://cloud.google.com/run/pricing> y <https://cloud.google.com/build/pricing>.
 

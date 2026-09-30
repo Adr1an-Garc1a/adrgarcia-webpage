@@ -16,7 +16,6 @@ gcloud services enable \
   artifactregistry.googleapis.com \
   cloudbuild.googleapis.com \
   iam.googleapis.com \
-  dns.googleapis.com \
   secretmanager.googleapis.com \
   --quiet
 ok "APIs habilitadas"
