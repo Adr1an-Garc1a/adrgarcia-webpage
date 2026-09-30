@@ -680,6 +680,10 @@ main:focus {
   background: var(--bg-sunk);
   transform: translate3d(0, var(--py, 0px), 0);
 }
+.portrait-frame picture,
+.about-scene picture {
+  height: 100%;
+}
 .portrait-frame img {
   width: 100%;
   height: 100%;
@@ -743,7 +747,7 @@ main:focus {
     aspect-ratio: 5 / 4;
   }
   .portrait-frame img {
-    object-position: 50% 22%;
+    object-position: 50% 42%;
   }
   .hero-grid {
     gap: var(--s-6);
@@ -847,6 +851,79 @@ main:focus {
 }
 @media (max-width: 480px) {
   .facts {
+    grid-template-columns: 1fr;
+  }
+}
+.pillars {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: clamp(1rem, 0.5rem + 1.5vw, 1.75rem);
+  margin: clamp(3rem, 2rem + 3vw, 5rem) 0 0;
+  padding: 0;
+  list-style: none;
+}
+.pillar {
+  position: relative;
+  display: grid;
+  align-content: start;
+  gap: var(--s-3);
+  padding: var(--s-6) var(--s-5) var(--s-5);
+  border: 1px solid var(--line);
+  border-top: 3px solid var(--c);
+  border-radius: var(--r-lg);
+  background: var(--bg);
+  box-shadow: 0 -6px 16px -12px var(--c);
+  transition:
+    transform 0.4s var(--ease-out),
+    box-shadow 0.4s var(--ease-out);
+}
+.pillar:hover {
+  transform: translateY(-4px);
+  box-shadow:
+    0 -6px 16px -12px var(--c),
+    0 14px 32px color-mix(in oklch, var(--c) 22%, transparent);
+}
+.pillar-icon {
+  display: grid;
+  place-items: center;
+  width: 48px;
+  height: 48px;
+  border-radius: 14px;
+  background: color-mix(in srgb, var(--c) 16%, var(--surface));
+  color: color-mix(in srgb, var(--c) 72%, var(--ink));
+}
+.pillar-icon .icon {
+  width: 26px;
+  height: 26px;
+}
+.pillar-title {
+  font-size: var(--fs-md);
+  letter-spacing: -0.02em;
+  line-height: 1.25;
+}
+.pillar-body {
+  color: var(--ink-2);
+  line-height: 1.55;
+}
+.pillar-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s-2);
+  margin-top: var(--s-1);
+  padding: 0;
+  list-style: none;
+}
+.pillar-chips li {
+  padding: 0.2rem 0.65rem;
+  border: 1px solid color-mix(in srgb, var(--c) 45%, var(--line));
+  border-radius: 999px;
+  background: var(--surface);
+  color: var(--ink-2);
+  font-size: var(--fs-xs);
+  font-weight: 500;
+}
+@media (max-width: 1000px) {
+  .pillars {
     grid-template-columns: 1fr;
   }
 }
@@ -1003,6 +1080,37 @@ main:focus {
   color: var(--ink-2);
   max-width: 62ch;
 }
+.role-scope {
+  display: grid;
+  gap: var(--s-1);
+  margin-top: var(--s-3);
+  padding: var(--s-3) var(--s-4);
+  border-radius: var(--r-md);
+  background: var(--bg-sunk);
+  font-size: var(--fs-sm);
+}
+.role-scope > div {
+  display: grid;
+  grid-template-columns: 7.5rem minmax(0, 1fr);
+  gap: var(--s-3);
+}
+.role-scope dt {
+  color: var(--ink-3);
+  font-size: var(--fs-xs);
+  font-weight: 500;
+  padding-top: 0.15em;
+}
+.role-scope dd {
+  margin: 0;
+  color: var(--ink);
+  font-weight: 520;
+}
+@media (max-width: 480px) {
+  .role-scope > div {
+    grid-template-columns: 1fr;
+    gap: 0;
+  }
+}
 .role-tags {
   display: flex;
   flex-wrap: wrap;
@@ -1151,7 +1259,7 @@ main:focus {
   --lift: 0px;
   position: relative;
   display: grid;
-  grid-template-rows: auto auto 1fr auto auto;
+  grid-template-rows: auto auto auto 1fr auto auto;
   justify-items: center;
   padding: var(--s-6) var(--s-5) var(--s-5);
   border: 1px solid var(--line);
@@ -1248,9 +1356,19 @@ main:focus {
 /* decorative layers let clicks fall through to the stretched Credly link */
 .cert-badge,
 .cert-level,
+.cert-desc,
 .cert-dates,
 .cert-actions {
   pointer-events: none;
+}
+.cert-desc {
+  align-self: start;
+  margin-top: var(--s-2);
+  max-width: 34ch;
+  color: var(--ink-2);
+  font-size: var(--fs-sm);
+  line-height: 1.5;
+  text-wrap: pretty;
 }
 .cert-view {
   pointer-events: auto;
@@ -1372,6 +1490,14 @@ main:focus {
   .cert-name {
     margin-top: var(--s-2);
     font-size: var(--fs-base);
+  }
+  .cert-desc {
+    grid-column: 2;
+    margin-top: 0;
+    font-size: var(--fs-xs);
+  }
+  .cert-badge {
+    grid-row: 1 / span 4;
   }
   .cert-dates {
     justify-content: start;
@@ -1704,25 +1830,101 @@ body.has-dialog {
 
 /* ---------- 404 ---------- */
 .not-found {
-  min-height: 100dvh;
+  position: relative;
+  isolation: isolate;
+  min-height: calc(100dvh - var(--header-h));
   display: grid;
-  align-content: center;
+  align-items: center;
+  padding-block: var(--s-8);
+  overflow: hidden;
+}
+.e404-inner {
+  position: relative;
+  z-index: 1;
+  display: grid;
   justify-items: start;
   gap: var(--s-4);
+  max-width: 44rem;
 }
 .nf-code {
+  display: flex;
   font-family: var(--mono);
-  font-size: var(--fs-display);
+  font-size: clamp(5.5rem, 3rem + 12vw, 11rem);
   font-weight: 700;
-  color: var(--accent);
-  line-height: 1;
+  letter-spacing: -0.04em;
+  line-height: 0.9;
+}
+.nf-code span {
+  color: var(--c);
+  text-shadow: 0 0 28px color-mix(in oklch, var(--c) 45%, transparent);
+}
+.e404-zero {
+  display: inline-block;
+  animation: e404-spin 9s linear infinite;
+}
+@keyframes e404-spin {
+  to { rotate: 360deg; }
 }
 .not-found h1 {
   font-size: var(--fs-xl);
+  letter-spacing: -0.03em;
 }
-.not-found p:not(.nf-code) {
+.e404-body {
   color: var(--ink-2);
-  margin-bottom: var(--s-4);
+  font-size: var(--fs-md);
+  max-width: 52ch;
+}
+.e404-links {
+  display: grid;
+  gap: var(--s-2);
+  width: min(100%, 30rem);
+  margin: var(--s-2) 0 var(--s-4);
+  padding: 0;
+  list-style: none;
+}
+.e404-link {
+  display: flex;
+  align-items: center;
+  gap: var(--s-3);
+  min-height: 52px;
+  padding: 0 var(--s-4);
+  border: 1px solid var(--line);
+  border-radius: var(--r-md);
+  background: var(--surface);
+  color: var(--ink);
+  font-weight: 560;
+  text-decoration: none;
+  transition:
+    border-color 0.2s,
+    transform 0.3s var(--ease-out),
+    box-shadow 0.3s var(--ease-out);
+}
+.e404-link > .icon:first-child {
+  color: var(--accent);
+}
+.e404-link span {
+  flex: 1;
+}
+.e404-arrow {
+  color: var(--ink-3);
+  transition: transform 0.3s var(--ease-out);
+}
+.e404-link:hover {
+  border-color: var(--accent-line);
+  transform: translateX(4px);
+  box-shadow: var(--shadow-sm);
+}
+.e404-link:hover .e404-arrow {
+  color: var(--accent);
+  transform: translateX(3px);
+}
+.page-404 .header-actions {
+  margin-left: auto;
+}
+@media (prefers-reduced-motion: reduce) {
+  .e404-zero {
+    animation: none;
+  }
 }
 
 /* ---------- motion: reveal (JS-enabled only, content visible without JS) ---------- */

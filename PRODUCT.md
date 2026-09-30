@@ -18,7 +18,7 @@ Plain static HTML/CSS/JS (ES modules, no framework, no runtime dependencies). Th
 
 ## Product Purpose
 
-Personal brand site for Adrián García Juárez, Cloud Solutions Architect (CDMX), open to new opportunities since September 2026 (previously Customer Engineer at Xertica.ai, Jun–Sep 2026). Success = a visitor understands in one viewport who he is and why to trust him, verifies any certification in one click (Credly in a new tab), and contacts him or downloads the CV.
+Personal brand site for Adrián García Juárez, Cloud Solutions Architect (CDMX), open to new opportunities since September 2026 (previously Customer Engineer at Xertica.ai, Jun–Sep 2026). Success = a visitor understands in one viewport who he is and why to trust him, verifies any certification in one click (Credly in a new tab), and contacts him by email or LinkedIn.
 
 ## Positioning
 
@@ -31,7 +31,7 @@ Visitors arrive from LinkedIn, email signatures, proposals and QR codes at event
 ## Capabilities and Constraints
 
 - Bilingual: Spanish default, English toggle, remembered per visitor.
-- Public contact: email + LinkedIn only. Phone number must never be published (also redacted from the downloadable CV).
+- Public contact: email + LinkedIn only. The CV is not published on the site, and the phone number must never appear.
 - Certifications link to their Credly public URLs in a new tab (`noopener noreferrer`); certificate PDFs viewable in-page.
 - Strict security headers (CSP without inline script, HSTS, no framing), no third-party trackers, no cookies.
 - Must cost close to zero at low traffic.

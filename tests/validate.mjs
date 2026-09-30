@@ -49,7 +49,7 @@ for (const file of pages) {
   if (/\sstyle="/.test(html)) fail(`${rel}: inline style attribute`);
   if (/<style[\s>]/.test(html)) fail(`${rel}: inline <style> block`);
   if (/\son[a-z]+="/i.test(html)) fail(`${rel}: inline event handler`);
-  if (/https?:\/\/(?!adrgarcia\.com|www\.credly\.com|www\.linkedin\.com|schema\.org|www\.w3\.org|www\.sitemaps\.org)/.test(
+  if (/https?:\/\/(?!adrgarcia\.com|www\.credly\.com|www\.linkedin\.com|mail\.google\.com\/mail\/\?view=cm|schema\.org|www\.w3\.org|www\.sitemaps\.org)/.test(
     html.replace(/<script type="application\/ld\+json">[\s\S]*?<\/script>/, '')
   ))
     fail(`${rel}: unexpected third-party URL`);
@@ -102,6 +102,20 @@ for (const [label, re] of [
   if (es !== en) fail(`language parity: ${label} es=${es} en=${en}`);
 }
 if (count('index.html', /class="cert-card /g) !== 6) fail('expected 6 certification cards');
+
+// 8) Contact is email + LinkedIn only: the CV is not published anywhere.
+for (const f of files) if (/cv/i.test(f.slice(dist.length)) && /\.(pdf|webp|png|jpe?g)$/.test(f)) fail(`${f.slice(dist.length)}: CV file must not be published`);
+for (const p of ['index.html', 'en/index.html']) {
+  const html = readFileSync(join(dist, p), 'utf8');
+  if (/\.pdf"[^>]*\sdownload\b|href="[^"]*cv[^"]*\.pdf"/i.test(html)) fail(`${p}: CV download link found`);
+  // Every "email me" link opens a draft addressed to the right inbox.
+  const mails = [...html.matchAll(/href="(mailto:[^"]+)"/g)].map((m) => m[1].replaceAll('&amp;', '&'));
+  if (mails.length < 2) fail(`${p}: expected mailto links in hero and contact`);
+  for (const m of mails) {
+    const u = new URL(m);
+    if (u.pathname !== 'gadrianjua@gmail.com' || !u.searchParams.get('subject')) fail(`${p}: bad mailto ${m}`);
+  }
+}
 
 if (failures.length) {
   console.error(`✖ ${failures.length} check(s) failed:\n  - ${failures.join('\n  - ')}`);

@@ -34,6 +34,12 @@ const icon = (name, cls = 'icon') =>
 
 const ext = 'target="_blank" rel="noopener noreferrer"';
 
+// Pre-filled email draft (subject + greeting) for the mail client and for Gmail on the web.
+const mailto = (L) =>
+  `mailto:${site.email}?subject=${encodeURIComponent(L.contact.subject)}&body=${encodeURIComponent(L.contact.mailBody)}`;
+const gmail = (L) =>
+  `https://mail.google.com/mail/?view=cm&fs=1&to=${encodeURIComponent(site.email)}&su=${encodeURIComponent(L.contact.subject)}&body=${encodeURIComponent(L.contact.mailBody)}`;
+
 // Decorative neon shapes (pure CSS/SVG, aria-hidden). Positions live in CSS per field.
 const NEON = {
   hero: ['ring green', 'dot blue', 'tri pink', 'square yellow', 'plus purple', 'ring orange', 'dot red', 'pill blue'],
@@ -106,6 +112,10 @@ const sprite = `
   <symbol id="i-pin" viewBox="0 0 24 24"><path d="M12 21s-6.5-5.6-6.5-11a6.5 6.5 0 1 1 13 0c0 5.4-6.5 11-6.5 11z"/><circle cx="12" cy="10" r="2.3"/></symbol>
   <symbol id="i-zoom" viewBox="0 0 24 24"><circle cx="10.5" cy="10.5" r="6"/><path d="m15 15 5 5M10.5 8v5M8 10.5h5"/></symbol>
   <symbol id="i-cloud" viewBox="0 0 24 24"><path d="M7 18.5h10.5a4 4 0 0 0 .6-7.95A6 6 0 0 0 6.6 9.2 4.7 4.7 0 0 0 7 18.5z"/></symbol>
+  <symbol id="i-briefcase" viewBox="0 0 24 24"><rect x="3" y="7" width="18" height="13" rx="2.5"/><path d="M9 7V5.5A1.5 1.5 0 0 1 10.5 4h3A1.5 1.5 0 0 1 15 5.5V7M3 12.5h18M10.5 12.5v1.5h3v-1.5"/></symbol>
+  <symbol id="i-globe" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 2.6 3.8 5.6 3.8 9s-1.3 6.4-3.8 9c-2.5-2.6-3.8-5.6-3.8-9S9.5 5.6 12 3z"/></symbol>
+  <symbol id="i-home" viewBox="0 0 24 24"><path d="M4 11 12 4l8 7v8.5a1.5 1.5 0 0 1-1.5 1.5H15v-6H9v6H5.5A1.5 1.5 0 0 1 4 19.5z"/></symbol>
+  <symbol id="i-route" viewBox="0 0 24 24"><circle cx="6" cy="18" r="2.5"/><circle cx="18" cy="6" r="2.5"/><path d="M8.5 18H16a3 3 0 0 0 0-6H8a3 3 0 0 1 0-6h7.5"/></symbol>
   <symbol id="i-shield" viewBox="0 0 24 24"><path d="M12 3 5 6v5.5c0 4.3 3 8 7 9.5 4-1.5 7-5.2 7-9.5V6z"/><path d="m9 12 2.2 2.2L15.5 10"/></symbol>
 </svg>`;
 
@@ -123,6 +133,7 @@ function head(lang, L) {
     alumniOf: { '@type': 'CollegeOrUniversity', name: 'Instituto Politécnico Nacional (UPIICSA)' },
     address: { '@type': 'PostalAddress', addressLocality: 'Ciudad de México', addressCountry: 'MX' },
     sameAs: [site.linkedin],
+    knowsAbout: ['Google Cloud', 'AWS', 'Microsoft Azure', 'Data warehousing', 'Data governance', 'AI agents (ADK, A2A)', 'Technical presales', 'FinOps'],
     hasCredential: certifications.map((c) => ({
       '@type': 'EducationalOccupationalCredential',
       name: `Google Cloud Certified ${c.name}`,
@@ -153,7 +164,7 @@ function head(lang, L) {
 <meta property="og:image" content="${site.url}/assets/img/og-image.jpg">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
-<meta property="og:image:alt" content="${esc(site.name)} — Customer Engineer · Google Cloud">
+<meta property="og:image:alt" content="${esc(site.name)} — Cloud Solutions Architect · Google Cloud">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <link rel="icon" href="/favicon.ico" sizes="32x32">
@@ -220,9 +231,8 @@ function hero(lang, L) {
       <p class="hero-tagline">${esc(H.tagline)}</p>
       <p class="hero-lede">${esc(H.lede)}</p>
       <div class="hero-actions">
-        <a class="btn btn-primary" href="mailto:${site.email}">${icon('mail')}<span>${esc(H.ctaPrimary)}</span></a>
-        <a class="btn btn-secondary" href="${site.cv}" data-open-viewer="cv">${icon('file')}<span>${esc(H.ctaCv)}</span></a>
-        <a class="icon-btn icon-btn-lg" href="${site.linkedin}" ${ext} aria-label="LinkedIn ${esc(L.certs.newTab)}">${icon('linkedin')}</a>
+        <a class="btn btn-primary" href="${esc(mailto(L))}" data-mailto>${icon('mail')}<span>${esc(H.ctaPrimary)}</span></a>
+        <a class="btn btn-secondary" href="${site.linkedin}" ${ext}>${icon('linkedin')}<span>${esc(H.ctaLinkedin)}</span><span class="visually-hidden"> ${esc(L.certs.newTab)}</span></a>
       </div>
       <a class="hero-proof" href="#${ids.certs}">
         <span class="proof-badges" aria-hidden="true">${badges}</span>
@@ -264,6 +274,20 @@ function about(lang, L) {
       </picture>
     </figure>
   </div>
+  <div class="container">
+    <ul class="pillars" role="list">
+      ${A.pillars
+        .map(
+          (p) => `<li class="pillar reveal c-${p.color}">
+        <span class="pillar-icon">${icon(p.icon)}</span>
+        <h3 class="pillar-title">${esc(p.title)}</h3>
+        <p class="pillar-body">${esc(p.body)}</p>
+        <ul class="pillar-chips" role="list">${p.chips.map((c) => `<li>${esc(c)}</li>`).join('')}</ul>
+      </li>`
+        )
+        .join('')}
+    </ul>
+  </div>
 </section>`;
 }
 
@@ -297,6 +321,16 @@ function careerSummary(lang, L) {
     </div>`;
 }
 
+// Segments / industries / countries / scope of a role, when the content defines them.
+const roleScope = (r, E, lang) => {
+  if (!r.scope) return '';
+  const rows = ['segments', 'industries', 'countries', 'stack']
+    .filter((k) => r.scope[k])
+    .map((k) => `<div><dt>${esc(E.scope[k])}</dt><dd>${esc(r.scope[k][lang])}</dd></div>`)
+    .join('');
+  return `<dl class="role-scope">${rows}</dl>`;
+};
+
 function timeline(lang, L) {
   const E = L.exp;
   const ids = anchors(lang);
@@ -319,6 +353,7 @@ function timeline(lang, L) {
                 <p class="role-meta"><span class="role-company">${esc(g.company)}</span> · <time datetime="${r.start}">${fmtMonth(r.start, L)}</time> – ${end}${dur ? ` <span class="role-dur">· ${esc(dur)}</span>` : ''}</p>
               </header>
               <p class="role-summary">${esc(r.summary[lang])}</p>
+              ${roleScope(r, E, lang)}
               <ul class="role-tags" aria-label="${lang === 'es' ? 'Temas' : 'Topics'}">${r.tags.map((x) => `<li>${esc(x)}</li>`).join('')}</ul>
               <div class="role-points" id="pts-${r.id}" data-points>
                 <ul>${r.points[lang].map((p) => `<li>${md(p)}</li>`).join('')}</ul>
@@ -392,6 +427,7 @@ function certs(lang, L) {
         <div class="cert-badge"><img src="/assets/img/badges/${c.slug}.webp" alt="" width="218" height="218" loading="lazy" decoding="async"></div>
         <p class="cert-level">${esc(C.levels[c.level])}</p>
         <h3 class="cert-name"><a class="cert-link" href="${c.credly}" ${ext}>${esc(c.name)}<span class="visually-hidden"> — ${esc(C.verify)} ${esc(C.newTab)}</span></a></h3>
+        <p class="cert-desc">${esc(c.desc[lang])}</p>
         <dl class="cert-dates">
           <div><dt>${esc(C.issued)}</dt><dd><time datetime="${c.issued}">${fmtDate(c.issued, L)}</time></dd></div>
           <div><dt>${esc(C.expires)}</dt><dd><time datetime="${c.expires}">${fmtDate(c.expires, L)}</time></dd></div>
@@ -443,13 +479,13 @@ function contact(lang, L) {
     <h2 class="contact-title" id="contact-title">${esc(C.title)}</h2>
     <p class="contact-body">${esc(C.body)}</p>
     <div class="contact-email">
-      <a class="email-link" href="mailto:${site.email}">${esc(site.email)}</a>
+      <a class="email-link" href="${esc(mailto(L))}" data-mailto>${esc(site.email)}</a>
       <button class="icon-btn copy-btn" type="button" data-copy="${site.email}" data-copied="${esc(C.copied)}" aria-label="${esc(C.copy)}">${icon('copy', 'icon icon-copy')}${icon('check', 'icon icon-check')}</button>
     </div>
     <div class="contact-actions">
-      <a class="btn btn-primary btn-on-dark" href="mailto:${site.email}">${icon('mail')}<span>${esc(C.email)}</span></a>
+      <a class="btn btn-primary btn-on-dark" href="${esc(mailto(L))}" data-mailto>${icon('mail')}<span>${esc(C.email)}</span></a>
+      <a class="btn btn-secondary btn-on-dark" href="${esc(gmail(L))}" ${ext}>${icon('external')}<span>${esc(C.gmail)}</span><span class="visually-hidden"> ${esc(L.certs.newTab)}</span></a>
       <a class="btn btn-secondary btn-on-dark" href="${site.linkedin}" ${ext}>${icon('linkedin')}<span>${esc(C.linkedin)}</span><span class="visually-hidden"> ${esc(L.certs.newTab)}</span></a>
-      <a class="btn btn-secondary btn-on-dark" href="${site.cv}" download>${icon('download')}<span>${esc(C.cv)}</span></a>
     </div>
   </div>
 </section>`;
@@ -468,14 +504,7 @@ function footer(lang, L) {
 
 function viewer(lang, L) {
   const V = L.viewer;
-  const docs = {
-    cv: {
-      title: V.cvTitle,
-      pdf: site.cv,
-      pages: ['/assets/img/docs/cv-p1.webp', '/assets/img/docs/cv-p2.webp'],
-      ratio: '1241 / 1754',
-    },
-  };
+  const docs = {};
   for (const c of certifications) {
     docs[c.slug] = {
       title: `Google Cloud Certified — ${c.name}`,
@@ -534,23 +563,59 @@ ${viewer(lang, L)}
 
 export function render404(lang) {
   const L = t[lang];
+  const N = L.notFound;
+  const ids = anchors(lang);
+  const other = lang === 'es' ? 'en' : 'es';
+  const links = [
+    { href: `${L.path}#${ids.experience}`, icon: 'route', label: N.links.experience },
+    { href: `${L.path}#${ids.certs}`, icon: 'shield', label: N.links.certs },
+    { href: mailto(L), icon: 'mail', label: N.links.contact, mail: true },
+  ];
   return `<!doctype html>
-<html lang="${L.htmlLang}">
+<html lang="${L.htmlLang}" data-lang="${lang}">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>${esc(L.notFound.title)} — ${esc(site.name)}</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>${esc(N.title)} — ${esc(site.name)}</title>
 <meta name="robots" content="noindex">
+<meta name="color-scheme" content="light dark">
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="preload" href="/assets/fonts/geist-variable.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="/assets/css/main.css?v=__BUILD__">
 <script src="/assets/js/theme-init.js?v=__BUILD__"></script>
+<script type="module" src="/assets/js/main.js?v=__BUILD__"></script>
 </head>
-<body>
-<main class="not-found container">
-  <p class="nf-code" aria-hidden="true">404</p>
-  <h1>${esc(L.notFound.title)}</h1>
-  <p>${esc(L.notFound.body)}</p>
-  <a class="btn btn-primary" href="${L.path}">${esc(L.notFound.back)}</a>
+<body class="page-404">
+${sprite}
+<header class="site-header" data-header>
+  <div class="container header-inner">
+    <a class="brand" href="${L.path}" aria-label="${esc(site.name)} — ${esc(N.back)}">
+      <span class="brand-mark" aria-hidden="true">AG</span>
+      <span class="brand-name">Adrián García</span>
+    </a>
+    <div class="header-actions">
+      <a class="lang-switch" href="${t[other].path}" hreflang="${other}" lang="${t[other].htmlLang}" aria-label="${esc(L.langSwitch.aria)}">${esc(L.langSwitch.short)}</a>
+      <button class="icon-btn theme-toggle" type="button" data-theme-toggle data-label-light="${esc(L.theme.toLight)}" data-label-dark="${esc(L.theme.toDark)}" aria-label="${esc(L.theme.toDark)}">
+        ${icon('moon', 'icon icon-moon')}${icon('sun', 'icon icon-sun')}
+      </button>
+    </div>
+  </div>
+</header>
+<main id="main" class="not-found" data-neon>
+  ${neon('hero')}
+  <div class="container e404-inner">
+    <p class="nf-code" aria-hidden="true"><span class="c-green">4</span><span class="e404-zero c-pink">0</span><span class="c-blue">4</span></p>
+    <h1>${esc(N.title)}</h1>
+    <p class="e404-body">${esc(N.body)}</p>
+    <ul class="e404-links" role="list">
+      ${links
+        .map(
+          (l) => `<li><a class="e404-link" href="${esc(l.href)}"${l.mail ? ' data-mailto' : ''}>${icon(l.icon)}<span>${esc(l.label)}</span>${icon('arrow', 'icon e404-arrow')}</a></li>`
+        )
+        .join('')}
+    </ul>
+    <a class="btn btn-primary" href="${L.path}">${icon('home')}<span>${esc(N.back)}</span></a>
+  </div>
 </main>
 </body>
 </html>

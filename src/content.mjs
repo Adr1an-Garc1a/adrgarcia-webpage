@@ -6,7 +6,6 @@ export const site = {
   name: 'Adrián García Juárez',
   email: 'gadrianjua@gmail.com',
   linkedin: 'https://www.linkedin.com/in/adrian-garcia-juarez-83020b232',
-  cv: '/docs/adrian-garcia-juarez-cv-2026-en.pdf',
   locales: ['es', 'en'],
 };
 
@@ -17,7 +16,7 @@ export const t = {
     path: '/',
     title: 'Adrián García Juárez — Cloud Solutions Architect · Google Cloud',
     description:
-      'Cloud Solutions Architect con 6 certificaciones vigentes de Google Cloud y más de 4 años y medio de experiencia en arquitectura cloud, datos, seguridad y preventa técnica. CDMX, disponible para nuevas oportunidades.',
+      'Cloud Solutions Architect con 6 certificaciones vigentes de Google Cloud. Más de 4 años y medio implementando nube y convirtiendo necesidades de negocio en propuestas para empresas de México y Latinoamérica. CDMX, disponible para nuevas oportunidades.',
     skip: 'Saltar al contenido',
     nav: { about: 'Perfil', experience: 'Experiencia', certs: 'Certificaciones', skills: 'Habilidades', contact: 'Contacto' },
     menu: 'Menú',
@@ -26,31 +25,55 @@ export const t = {
     hero: {
       role: 'Cloud Solutions Architect',
       status: 'Disponible para nuevas oportunidades',
-      tagline: 'Diseño arquitecturas en Google Cloud y las convierto en resultados de negocio.',
-      lede: 'Más de cuatro años y medio entre la consola y la sala de juntas: migraciones, pipelines de datos, seguridad y FinOps, explicados en el idioma de quien decide.',
+      tagline: 'Implemento soluciones en la nube y las convierto en propuestas de negocio.',
+      lede: 'Más de cuatro años y medio entre la consola y la sala de juntas: escucho la necesidad de la empresa, diseño la arquitectura en Google Cloud y la presento con costos y ROI claros.',
       ctaPrimary: 'Escríbeme',
-      ctaCv: 'Ver CV',
+      ctaLinkedin: 'LinkedIn',
       proof: '6 certificaciones Google Cloud vigentes',
       proofDetail: '3 Professional · 1 Associate · 2 Foundational',
       location: 'Ciudad de México',
-      photoAlt: 'Adrián García Juárez sonriendo, sentado sobre una escultura de piedra en un bosque de oyameles.',
+      photoAlt: 'Adrián García Juárez sonriendo, de pie en un sendero bajo los toriis rojos de un santuario en Kioto, Japón.',
     },
     about: {
       title: 'Perfil',
       body: [
-        'Soy Ingeniero en Informática egresado del Instituto Politécnico Nacional (UPIICSA) y arquitecto de soluciones certificado en Google Cloud. Mi carrera empezó aprovisionando proyectos en GCP y he acompañado a empresas desde el discovery técnico hasta la prueba de concepto. Hoy busco mi siguiente reto como Cloud Solutions Architect.',
-        'Me especializo en migración de infraestructura, pipelines de ingeniería de datos y arquitectura de seguridad. Traduzco requerimientos técnicos en propuestas de valor con foco en optimización de consumo (FinOps), para que la decisión sea clara y el cierre, más rápido.',
+        'Soy Ingeniero en Informática egresado del Instituto Politécnico Nacional (UPIICSA) y arquitecto de soluciones certificado en Google Cloud. Empecé implementando infraestructura en GCP con mis propias manos y después pasé a la preventa y a la estrategia técnica comercial. Esa mezcla es mi diferencial: sé lo que cuesta construir una solución y sé cómo defenderla ante negocio.',
+        'Escucho el problema de cada empresa, lo traduzco en requerimientos y lo convierto en una propuesta de negocio con arquitectura, costos (FinOps) y retorno claros. Así la decisión es más fácil y el cierre, más rápido.',
+      ],
+      pillars: [
+        {
+          icon: 'cloud',
+          color: 'green',
+          title: 'Implementación en la nube',
+          body: 'Despliego y automatizo infraestructura, datos, seguridad e IA en Google Cloud con Terraform, CI/CD y buenas prácticas de IAM. También conozco AWS y Azure.',
+          chips: ['Google Cloud', 'AWS', 'Azure', 'Terraform'],
+        },
+        {
+          icon: 'briefcase',
+          color: 'pink',
+          title: 'De la necesidad a la propuesta',
+          body: 'Hago el discovery, diseño la solución, la valido con una prueba de concepto y la presento con costos y ROI en el idioma de quien decide.',
+          chips: ['Discovery', 'PoCs', 'FinOps', 'ROI'],
+        },
+        {
+          icon: 'globe',
+          color: 'blue',
+          title: 'Industrias y mercados',
+          body: 'De micro SMB a Enterprise, pasando por SMB y Corporate, en México y Latinoamérica: Colombia, Perú y Ecuador.',
+          chips: ['TI', 'Healthcare', 'Retail', 'E-commerce', 'Finanzas', 'Industria'],
+        },
       ],
       facts: [
         { k: 'Base', v: 'CDMX, México' },
         { k: 'Formación', v: 'Ing. en Informática · UPIICSA-IPN, 2022' },
         { k: 'Idiomas', v: 'Español nativo · Inglés C1' },
-        { k: 'Enfoque', v: 'Infraestructura, Datos, Seguridad, IA generativa' },
+        { k: 'Enfoque', v: 'Infraestructura, Datos, Seguridad e IA' },
       ],
       sceneAlt: 'Adrián en un bosque de coníferas bajo cielo despejado.',
     },
     exp: {
       title: 'Experiencia',
+      scope: { segments: 'Segmentos', industries: 'Industrias', countries: 'Países', stack: 'Alcance' },
       intro: 'De la infraestructura a la estrategia técnica comercial. Selecciona un puesto para ver el detalle.',
       present: 'Actualidad',
       total: 'años de experiencia',
@@ -65,7 +88,7 @@ export const t = {
     },
     certs: {
       title: 'Certificaciones',
-      intro: 'Seis credenciales oficiales de Google Cloud, todas vigentes. Cada tarjeta abre la verificación pública en Credly en una pestaña nueva.',
+      intro: 'Seis credenciales oficiales de Google Cloud, todas vigentes. Haz clic en cualquier tarjeta para ver la verificación pública en Credly.',
       verify: 'Verificar en Credly',
       view: 'Ver certificado',
       issued: 'Emitida',
@@ -76,12 +99,14 @@ export const t = {
     skills: { title: 'Habilidades' },
     contact: {
       title: '¿Buscas un Cloud Solutions Architect?',
-      body: 'Estoy disponible para nuevas oportunidades en arquitectura cloud, preventa técnica o Customer Engineering en Google Cloud. Escríbeme y platicamos; respondo en español o inglés.',
+      body: 'Estoy disponible para nuevas oportunidades en arquitectura cloud, preventa técnica o Customer Engineering. Escríbeme a mi correo o por LinkedIn; respondo en español o inglés.',
       email: 'Escríbeme',
+      gmail: 'Redactar en Gmail',
       copy: 'Copiar correo',
       copied: 'Correo copiado',
       linkedin: 'LinkedIn',
-      cv: 'Descargar CV (PDF)',
+      subject: 'Oportunidad para Adrián García — Cloud Solutions Architect',
+      mailBody: 'Hola Adrián,\n\n',
     },
     viewer: {
       close: 'Cerrar',
@@ -92,10 +117,14 @@ export const t = {
       page: 'Página',
       of: 'de',
       zoom: 'Ampliar',
-      cvTitle: 'Currículum 2026 (inglés)',
     },
     footer: { rights: 'Adrián García Juárez', built: 'Servido desde Google Cloud Run.', top: 'Volver arriba' },
-    notFound: { title: 'Página no encontrada', body: 'La dirección no existe o cambió de lugar.', back: 'Volver al inicio' },
+    notFound: {
+      title: 'Página no encontrada',
+      body: 'Este camino no lleva a ningún lado; la dirección no existe o cambió de lugar. Estos sí te llevan a algún sitio:',
+      back: 'Volver al inicio',
+      links: { experience: 'Ver mi experiencia', certs: 'Ver certificaciones', contact: 'Escribirme un correo' },
+    },
     months: ['ene', 'feb', 'mar', 'abr', 'may', 'jun', 'jul', 'ago', 'sep', 'oct', 'nov', 'dic'],
     dur: { y: 'año', ys: 'años', m: 'mes', ms: 'meses' },
   },
@@ -105,7 +134,7 @@ export const t = {
     path: '/en/',
     title: 'Adrián García Juárez — Cloud Solutions Architect · Google Cloud',
     description:
-      'Cloud Solutions Architect holding 6 active Google Cloud certifications with 4.5+ years in cloud architecture, data, security and technical presales. Mexico City, open to new opportunities.',
+      'Cloud Solutions Architect holding 6 active Google Cloud certifications. 4.5+ years implementing cloud and turning business needs into proposals for companies across Mexico and Latin America. Mexico City, open to new opportunities.',
     skip: 'Skip to content',
     nav: { about: 'Profile', experience: 'Experience', certs: 'Certifications', skills: 'Skills', contact: 'Contact' },
     menu: 'Menu',
@@ -114,31 +143,55 @@ export const t = {
     hero: {
       role: 'Cloud Solutions Architect',
       status: 'Open to new opportunities',
-      tagline: 'I design Google Cloud architectures and turn them into business outcomes.',
-      lede: 'Over four and a half years between the console and the boardroom: migrations, data pipelines, security and FinOps, explained in the language of whoever signs off.',
+      tagline: 'I implement cloud solutions and turn them into business proposals.',
+      lede: 'Over four and a half years between the console and the boardroom: I listen to what the business needs, design the Google Cloud architecture and present it with clear costs and ROI.',
       ctaPrimary: 'Get in touch',
-      ctaCv: 'View CV',
+      ctaLinkedin: 'LinkedIn',
       proof: '6 active Google Cloud certifications',
       proofDetail: '3 Professional · 1 Associate · 2 Foundational',
       location: 'Mexico City',
-      photoAlt: 'Adrián García Juárez smiling, seated on a stone sculpture in a fir forest.',
+      photoAlt: 'Adrián García Juárez smiling, standing on a path beneath the red torii gates of a shrine in Kyoto, Japan.',
     },
     about: {
       title: 'Profile',
       body: [
-        'I am an Informatics Engineer from Mexico’s Instituto Politécnico Nacional (UPIICSA) and a Google Cloud certified solutions architect. I started out provisioning GCP projects; since then I have guided companies from technical discovery all the way to a working proof of concept. I am now looking for my next challenge as a Cloud Solutions Architect.',
-        'I specialize in infrastructure migration, data engineering pipelines and security architecture. I translate technical requirements into value propositions focused on consumption optimization (FinOps), so the decision is clear and the deal closes faster.',
+        'I am an Informatics Engineer from Mexico’s Instituto Politécnico Nacional (UPIICSA) and a Google Cloud certified solutions architect. I started out implementing GCP infrastructure hands-on, then moved into presales and technical sales strategy. That mix is what sets me apart: I know what it takes to build a solution and how to make the case for it to the business.',
+        'I listen to each company’s problem, translate it into requirements and turn it into a business proposal with clear architecture, costs (FinOps) and return. The decision gets easier and the deal closes faster.',
+      ],
+      pillars: [
+        {
+          icon: 'cloud',
+          color: 'green',
+          title: 'Hands-on cloud implementation',
+          body: 'I deploy and automate infrastructure, data, security and AI on Google Cloud with Terraform, CI/CD and IAM best practices. I also work with AWS and Azure.',
+          chips: ['Google Cloud', 'AWS', 'Azure', 'Terraform'],
+        },
+        {
+          icon: 'briefcase',
+          color: 'pink',
+          title: 'From business need to proposal',
+          body: 'I run discovery, design the solution, prove it with a proof of concept and present it with costs and ROI in the language of whoever signs off.',
+          chips: ['Discovery', 'PoCs', 'FinOps', 'ROI'],
+        },
+        {
+          icon: 'globe',
+          color: 'blue',
+          title: 'Industries & markets',
+          body: 'From micro SMB to Enterprise, including SMB and Corporate, across Mexico and Latin America: Colombia, Peru and Ecuador.',
+          chips: ['IT', 'Healthcare', 'Retail', 'E-commerce', 'Finance', 'Industry'],
+        },
       ],
       facts: [
         { k: 'Based in', v: 'Mexico City, Mexico' },
         { k: 'Education', v: 'B.Sc. Computer Science · UPIICSA-IPN, 2022' },
         { k: 'Languages', v: 'Spanish (native) · English C1' },
-        { k: 'Focus', v: 'Infrastructure, Data, Security, Generative AI' },
+        { k: 'Focus', v: 'Infrastructure, Data, Security & AI' },
       ],
       sceneAlt: 'Adrián in a conifer forest under a clear sky.',
     },
     exp: {
       title: 'Experience',
+      scope: { segments: 'Segments', industries: 'Industries', countries: 'Countries', stack: 'Scope' },
       intro: 'From infrastructure to technical sales strategy. Select a role to see the details.',
       present: 'Present',
       total: 'years of experience',
@@ -153,7 +206,7 @@ export const t = {
     },
     certs: {
       title: 'Certifications',
-      intro: 'Six official Google Cloud credentials, all active. Each card opens its public Credly verification in a new tab.',
+      intro: 'Six official Google Cloud credentials, all active. Click any card to see its public verification on Credly.',
       verify: 'Verify on Credly',
       view: 'View certificate',
       issued: 'Issued',
@@ -164,12 +217,14 @@ export const t = {
     skills: { title: 'Skills' },
     contact: {
       title: 'Looking for a Cloud Solutions Architect?',
-      body: 'I am open to new opportunities in cloud architecture, technical presales or Customer Engineering on Google Cloud. Drop me a line; I reply in English or Spanish.',
+      body: 'I am open to new opportunities in cloud architecture, technical presales or Customer Engineering. Reach me by email or on LinkedIn; I reply in English or Spanish.',
       email: 'Email me',
+      gmail: 'Compose in Gmail',
       copy: 'Copy email',
       copied: 'Email copied',
       linkedin: 'LinkedIn',
-      cv: 'Download CV (PDF)',
+      subject: 'Opportunity for Adrián García — Cloud Solutions Architect',
+      mailBody: 'Hi Adrián,\n\n',
     },
     viewer: {
       close: 'Close',
@@ -180,10 +235,14 @@ export const t = {
       page: 'Page',
       of: 'of',
       zoom: 'Zoom',
-      cvTitle: 'Résumé 2026',
     },
     footer: { rights: 'Adrián García Juárez', built: 'Served from Google Cloud Run.', top: 'Back to top' },
-    notFound: { title: 'Page not found', body: 'That address does not exist or has moved.', back: 'Back to home' },
+    notFound: {
+      title: 'Page not found',
+      body: 'This path leads nowhere; the address does not exist or has moved. These ones do go somewhere:',
+      back: 'Back to home',
+      links: { experience: 'See my experience', certs: 'See certifications', contact: 'Send me an email' },
+    },
     months: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
     dur: { y: 'yr', ys: 'yrs', m: 'mo', ms: 'mos' },
   },
@@ -203,22 +262,26 @@ export const experience = [
         end: '2026-09',
         title: { es: 'Customer Engineer', en: 'Customer Engineer' },
         summary: {
-          es: 'Arquitectura de soluciones y demostraciones técnicas para las unidades de negocio de Xertica.',
-          en: 'Solution architecture and technical demos across Xertica’s business units.',
+          es: 'Soluciones de Datos en Google Cloud para clientes del segmento Corporate.',
+          en: 'Google Cloud Data solutions for Corporate-segment customers.',
+        },
+        scope: {
+          segments: { es: 'Corporate', en: 'Corporate' },
+          stack: { es: 'Soluciones de Datos en GCP', en: 'Data solutions on GCP' },
         },
         points: {
           es: [
+            'Diseñé soluciones de **datos en Google Cloud** (data warehouse, pipelines y analítica) a partir de las necesidades de negocio de clientes Corporate.',
             'Desarrollé y presenté **pruebas de concepto** y demos en vivo que validan la factibilidad de la arquitectura ante tomadores de decisión.',
-            'Lideré discovery técnico, alcance y diseño de soluciones en **Google Workspace, Infraestructura, Datos, Seguridad e IA**.',
             'Trabajé a diario con ventas para destrabar objeciones técnicas, validar requerimientos y avanzar oportunidades en el pipeline.',
           ],
           en: [
+            'Designed **Google Cloud data solutions** (data warehousing, pipelines and analytics) from the business needs of Corporate customers.',
             'Built and delivered hands-on **proofs of concept** and live demos that validate architectural feasibility for client decision-makers.',
-            'Drove technical discovery, scoping and solution design across **Google Workspace, Infrastructure, Data, Security and AI**.',
             'Partnered daily with sales to unblock technical objections, validate requirements and move deals through the pipeline.',
           ],
         },
-        tags: ['PoCs', 'Discovery', 'Workspace', 'GenAI'],
+        tags: ['BigQuery', 'Data', 'PoCs', 'Discovery'],
       },
     ],
   },
@@ -235,8 +298,14 @@ export const experience = [
         end: '2026-04',
         title: { es: 'Technical Sales Leader México', en: 'Technical Sales Leader Mexico' },
         summary: {
-          es: 'Estrategia técnica comercial para proyectos de Datos, Infraestructura e IA en Google Cloud.',
-          en: 'Technical sales strategy for Data, Infrastructure and AI projects on Google Cloud.',
+          es: 'Estrategia técnica comercial en Google Cloud, con foco en soluciones Enterprise para México y Latinoamérica.',
+          en: 'Technical sales strategy on Google Cloud, focused on Enterprise solutions across Mexico and Latin America.',
+        },
+        scope: {
+          segments: { es: 'Micro SMB, SMB, Corporate y Enterprise', en: 'Micro SMB, SMB, Corporate and Enterprise' },
+          industries: { es: 'Retail, Healthcare, Industria', en: 'Retail, Healthcare, Industry' },
+          countries: { es: 'México y Latinoamérica', en: 'Mexico and Latin America' },
+          stack: { es: 'Todo GCP: infraestructura, datos, seguridad e IA', en: 'All of GCP: infrastructure, data, security and AI' },
         },
         points: {
           es: [
@@ -258,8 +327,14 @@ export const experience = [
         end: '2024-11',
         title: { es: 'Presales Engineer', en: 'Presales Engineer' },
         summary: {
-          es: 'Preventa técnica para los segmentos Corporativo y PyME.',
-          en: 'Technical presales for Corporate and SMB segments.',
+          es: 'Preventa técnica de micro SMB a Corporate, cada vez más enfocada en soluciones Enterprise.',
+          en: 'Technical presales from micro SMB to Corporate, increasingly focused on Enterprise solutions.',
+        },
+        scope: {
+          segments: { es: 'Micro SMB, SMB, Corporate y Enterprise', en: 'Micro SMB, SMB, Corporate and Enterprise' },
+          industries: { es: 'Retail, Healthcare, Industria', en: 'Retail, Healthcare, Industry' },
+          countries: { es: 'México y Latinoamérica', en: 'Mexico and Latin America' },
+          stack: { es: 'Todo GCP: infraestructura, datos, seguridad e IA', en: 'All of GCP: infrastructure, data, security and AI' },
         },
         points: {
           es: [
@@ -294,6 +369,12 @@ export const experience = [
           es: 'Diseño y despliegue de infraestructura y monitoreo para nuevos clientes.',
           en: 'Designed and deployed infrastructure and monitoring for new customers.',
         },
+        scope: {
+          segments: { es: 'SMB y Corporate', en: 'SMB and Corporate' },
+          industries: { es: 'Healthcare y Finanzas', en: 'Healthcare and Finance' },
+          countries: { es: 'México, Colombia, Ecuador y Perú', en: 'Mexico, Colombia, Ecuador and Peru' },
+          stack: { es: 'Infraestructura en GCP', en: 'GCP infrastructure' },
+        },
         points: {
           es: [
             '**10–15 %** menos en la factura mensual de **15+** arquitecturas empresariales mediante FinOps y right-sizing.',
@@ -316,6 +397,12 @@ export const experience = [
         summary: {
           es: 'Aprovisionamiento de servicios core de Google Cloud y soporte a clientes.',
           en: 'Provisioned core Google Cloud services and supported customers.',
+        },
+        scope: {
+          segments: { es: 'SMB y Corporate', en: 'SMB and Corporate' },
+          industries: { es: 'Healthcare y Finanzas', en: 'Healthcare and Finance' },
+          countries: { es: 'México, Colombia, Ecuador y Perú', en: 'Mexico, Colombia, Ecuador and Peru' },
+          stack: { es: 'Infraestructura en GCP', en: 'GCP infrastructure' },
         },
         points: {
           es: [
@@ -350,6 +437,10 @@ export const education = {
 export const certifications = [
   {
     slug: 'professional-cloud-architect',
+    desc: {
+      es: 'Diseña arquitecturas seguras, escalables y de alta disponibilidad en Google Cloud, alineadas a objetivos de negocio.',
+      en: 'Designs secure, scalable, highly available Google Cloud architectures aligned with business goals.',
+    },
     name: 'Professional Cloud Architect',
     level: 'professional',
     issued: '2023-02-24',
@@ -358,6 +449,10 @@ export const certifications = [
   },
   {
     slug: 'professional-data-engineer',
+    desc: {
+      es: 'Diseña y opera plataformas de datos: pipelines, data warehouse en BigQuery, gobernanza y ML.',
+      en: 'Designs and runs data platforms: pipelines, BigQuery warehousing, governance and ML.',
+    },
     name: 'Professional Data Engineer',
     level: 'professional',
     issued: '2024-12-20',
@@ -366,6 +461,10 @@ export const certifications = [
   },
   {
     slug: 'professional-cloud-security-engineer',
+    desc: {
+      es: 'Protege cargas en Google Cloud: IAM, redes seguras, protección de datos y cumplimiento.',
+      en: 'Secures Google Cloud workloads: IAM, network security, data protection and compliance.',
+    },
     name: 'Professional Cloud Security Engineer',
     level: 'professional',
     issued: '2023-12-08',
@@ -374,6 +473,10 @@ export const certifications = [
   },
   {
     slug: 'associate-cloud-engineer',
+    desc: {
+      es: 'Despliega, monitorea y opera proyectos y servicios de Google Cloud en el día a día.',
+      en: 'Deploys, monitors and operates Google Cloud projects and services day to day.',
+    },
     name: 'Associate Cloud Engineer',
     level: 'associate',
     issued: '2022-12-18',
@@ -382,6 +485,10 @@ export const certifications = [
   },
   {
     slug: 'generative-ai-leader',
+    desc: {
+      es: 'Estrategia de IA generativa: casos de uso, agentes y adopción responsable en la empresa.',
+      en: 'Generative AI strategy: use cases, agents and responsible adoption in the enterprise.',
+    },
     name: 'Generative AI Leader',
     level: 'foundational',
     issued: '2026-04-23',
@@ -390,6 +497,10 @@ export const certifications = [
   },
   {
     slug: 'cloud-digital-leader',
+    desc: {
+      es: 'Explica el valor de la nube y la transformación digital con Google Cloud en términos de negocio.',
+      en: 'Explains cloud value and digital transformation with Google Cloud in business terms.',
+    },
     name: 'Cloud Digital Leader',
     level: 'foundational',
     issued: '2023-06-24',
@@ -400,12 +511,23 @@ export const certifications = [
 
 export const skills = [
   {
-    title: { es: 'Cloud y DevOps', en: 'Cloud & DevOps' },
-    items: ['Google Cloud Platform', 'Terraform', 'Docker', 'Kubernetes', 'Linux', 'Jenkins', 'CI/CD', { es: 'Redes on-premises', en: 'On-prem networking' }],
+    title: { es: 'Multicloud y DevOps', en: 'Multicloud & DevOps' },
+    items: ['Google Cloud Platform', 'AWS', 'Microsoft Azure', 'Terraform', 'Docker', 'Kubernetes', 'Linux', 'Jenkins', 'CI/CD', { es: 'Redes on-premises', en: 'On-prem networking' }],
   },
   {
     title: { es: 'Datos e IA', en: 'Data & AI' },
-    items: ['BigQuery', { es: 'ETL y flujos de datos', en: 'ETL & data workflows' }, 'MySQL', 'PostgreSQL', 'SQL Server', { es: 'Arquitectura de agentes de IA', en: 'AI agent architecture' }],
+    items: [
+      'BigQuery',
+      { es: 'Propuestas de Data Warehouse', en: 'Data warehouse proposals' },
+      { es: 'Gobernanza de datos', en: 'Data governance' },
+      { es: 'ETL y flujos de datos', en: 'ETL & data workflows' },
+      'MySQL',
+      'PostgreSQL',
+      'SQL Server',
+      { es: 'Agentes con ADK (Agent Development Kit)', en: 'Agents with ADK (Agent Development Kit)' },
+      { es: 'Protocolo A2A (Agent2Agent)', en: 'A2A protocol (Agent2Agent)' },
+      { es: 'Arquitectura de agentes de IA', en: 'AI agent architecture' },
+    ],
   },
   {
     title: { es: 'Desarrollo', en: 'Development' },
@@ -414,6 +536,8 @@ export const skills = [
   {
     title: { es: 'Negocio y productividad', en: 'Business & productivity' },
     items: [
+      { es: 'Propuestas de negocio', en: 'Business proposals' },
+      { es: 'Discovery de necesidades', en: 'Needs discovery' },
       { es: 'Preventa técnica', en: 'Technical presales' },
       'FinOps',
       { es: 'Pruebas de concepto', en: 'Proofs of concept' },

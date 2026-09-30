@@ -1,15 +1,17 @@
 # adrgarcia.com — Adrián García Juárez
 
-Sitio personal bilingüe (ES/EN) de **Adrián García Juárez**, Customer Engineer en Xertica.ai con 6 certificaciones vigentes de Google Cloud. Es HTML/CSS/JS estático, sin frameworks ni dependencias en runtime. Se sirve desde **nginx sin privilegios en Cloud Run** y se despliega con **Cloud Build + Artifact Registry**.
+Sitio personal bilingüe (ES/EN) de **Adrián García Juárez**, Cloud Solutions Architect con 6 certificaciones vigentes de Google Cloud. Es HTML/CSS/JS estático, sin frameworks ni dependencias en runtime. Se sirve desde **nginx sin privilegios en Cloud Run** y se despliega con **Cloud Build + Artifact Registry**.
 
 ## Qué incluye
 
-- **Hero** con foto, CTA a correo, visor del CV y la prueba de las 6 certificaciones.
+- **Hero** con foto, CTA a correo (borrador con asunto), LinkedIn y la prueba de las 6 certificaciones.
+- **Perfil** con tres pilares: implementación en la nube, de la necesidad a la propuesta de negocio, e industrias y mercados (micro SMB a Enterprise en México y LATAM).
 - **Timeline interactivo** con los logos reales de Xertica.ai, Servinformación e IPN. El riel se llena al hacer scroll, cada puesto se ilumina y los logros se pueden expandir.
 - **Certificaciones:** las tarjetas se inclinan hacia el cursor con brillo y el badge se eleva en 3D. Un clic abre Credly en una pestaña nueva, y "Ver certificado" abre el PDF en el visor integrado.
 - **Visor de documentos accesible** (`<dialog>`): zoom, páginas, descarga y verificación. Funciona en móvil, porque muestra los PDF como imágenes y además ofrece el PDF original.
 - **Tema claro/oscuro**, **ES/EN** con URLs propias (`/` y `/en/`, con `hreflang`), SEO (Open Graph, JSON-LD `Person`, sitemap) y `prefers-reduced-motion`.
-- **CV descargable con el teléfono redactado.** El build falla si el número aparece en cualquier archivo.
+- **Contacto solo por correo y LinkedIn.** El CV no se publica: el build falla si aparece un archivo o enlace de CV, o el número de teléfono.
+- **Página 404** propia en ES y EN, con atajos a experiencia, certificaciones y correo.
 
 ## Estructura
 
@@ -65,6 +67,6 @@ bash infra/05-budget-alerts.sh      # opcional
 | Servidor | nginx sin root (uid 101), solo GET/HEAD, sin versión, *dotfiles* bloqueados, cuerpo máx. 1 KB, timeouts cortos, `*.run.app` con `noindex` |
 | Contenedor | Multi-stage, sin herramientas de build en runtime, `apk upgrade`, `nginx -t` en build, compatible con FS de solo lectura |
 | GCP | SA de runtime **sin roles**; SA de CI con mínimo privilegio (el repo, un servicio y un SA); el pipeline no puede cambiar IAM; `max-instances=2` limita costo y abuso; alerta de presupuesto |
-| Datos | Teléfono redactado del CV y bloqueado en el build; EXIF (GPS) eliminado de la foto; metadatos de PDF limpiados |
+| Datos | CV no publicado y teléfono bloqueado en el build; EXIF (GPS) eliminado de la foto; metadatos de PDF limpiados |
 
 Mejoras opcionales cuando el sitio crezca: fijar las imágenes base por *digest*, activar Artifact Analysis (escaneo de vulnerabilidades, con costo) y poner un Load Balancer con Cloud Armor (WAF y rate limiting).

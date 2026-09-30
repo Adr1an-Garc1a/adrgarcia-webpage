@@ -52,7 +52,10 @@ Theme: follows `prefers-color-scheme`, can be toggled, and is remembered in `loc
 | Timeline | `.timeline` › `.tl-group` › `.tl-role` › `.role-card` | Rail fills on scroll; `.is-lit` node; `[data-collapsed]` achievements; `.is-current` role |
 | Certification card | `.cert-card` | `.level-professional/associate/foundational`; pointer tilt + glare; stretched Credly link; "Ver certificado" opens the viewer |
 | Chips | `.chips`, `.role-tags` | Static tags |
-| Document viewer | `dialog.viewer` | Pages as WebP; zoom toggle; pager (← →) for multi-page; open, download and verify actions |
+| Pillar | `.pillars` › `.pillar.c-{color}` | Neon top border, tinted icon, small chips; lifts on hover (profile section) |
+| Role scope | `.role-scope` | Segments / industries / countries / scope rows inside a role card (optional per role in `content.mjs`) |
+| 404 | `.not-found`, `.e404-*` | Neon 404 digits, shortcut links, back-home button; ES at `/404.html`, EN at `/en/404.html` |
+| Document viewer | `dialog.viewer` | Certificates only; pages as WebP; zoom toggle; open, download and verify actions |
 | Toast | `.toast` | `role=status`, used for "Correo copiado" |
 
 ## Breakpoints

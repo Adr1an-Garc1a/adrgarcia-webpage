@@ -26,7 +26,7 @@
 | Primer vistazo | Hay que abrir el PDF | En el hero están nombre, rol, propuesta de valor, CTA y la prueba de 6 certificaciones |
 | Evaluación | Hay que leer el CV completo | Timeline con logos, resultados en negritas y logros expandibles |
 | Verificación | Buscar cada credencial | Tarjeta → Credly en pestaña nueva, o el PDF en el visor integrado |
-| Acción | Copiar el correo del PDF | Botón de correo, copia al portapapeles, LinkedIn y descarga del CV |
+| Acción | Copiar el correo del PDF | Botón de correo (borrador con asunto), Gmail web, copia al portapapeles y LinkedIn; sin CV descargable |
 
 ## 5. Métricas de éxito (sin trackers por decisión de privacidad)
 - **Adopción:** conversaciones iniciadas por correo o LinkedIn que mencionen el sitio (registro manual de Adrián).
