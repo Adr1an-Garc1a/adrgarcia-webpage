@@ -128,7 +128,7 @@ function head(lang, L) {
     '@type': 'Person',
     name: site.name,
     url: site.url,
-    image: `${site.url}/assets/img/og-image.jpg`,
+    image: `${site.url}/assets/img/og-image.jpg?v=__BUILD__`,
     jobTitle: 'Cloud Solutions Architect',
     alumniOf: { '@type': 'CollegeOrUniversity', name: 'Instituto Politécnico Nacional (UPIICSA)' },
     address: { '@type': 'PostalAddress', addressLocality: 'Ciudad de México', addressCountry: 'MX' },
@@ -161,7 +161,7 @@ function head(lang, L) {
 <meta property="og:description" content="${esc(L.description)}">
 <meta property="og:url" content="${url}">
 <meta property="og:locale" content="${L.ogLocale}">
-<meta property="og:image" content="${site.url}/assets/img/og-image.jpg">
+<meta property="og:image" content="${site.url}/assets/img/og-image.jpg?v=__BUILD__">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta property="og:image:alt" content="${esc(site.name)} — Cloud Solutions Architect · Google Cloud">
@@ -171,7 +171,7 @@ function head(lang, L) {
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <link rel="manifest" href="/site.webmanifest">
 <link rel="preload" href="/assets/fonts/geist-variable.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="preload" as="image" href="/assets/img/photo/portrait-800.avif" type="image/avif" imagesrcset="/assets/img/photo/portrait-480.avif 480w, /assets/img/photo/portrait-800.avif 800w, /assets/img/photo/portrait-1200.avif 1200w" imagesizes="(min-width: 960px) 40vw, 90vw">
+<link rel="preload" as="image" href="/assets/img/photo/portrait-800.avif?v=__BUILD__" type="image/avif" imagesrcset="/assets/img/photo/portrait-480.avif?v=__BUILD__ 480w, /assets/img/photo/portrait-800.avif?v=__BUILD__ 800w, /assets/img/photo/portrait-1200.avif?v=__BUILD__ 1200w" imagesizes="(min-width: 960px) 40vw, 90vw">
 <link rel="stylesheet" href="/assets/css/main.css?v=__BUILD__">
 <script src="/assets/js/theme-init.js?v=__BUILD__"></script>
 <script type="module" src="/assets/js/main.js?v=__BUILD__"></script>
@@ -243,9 +243,9 @@ function hero(lang, L) {
     <figure class="hero-portrait" data-parallax>
       <div class="portrait-frame">
         <picture>
-          <source type="image/avif" srcset="/assets/img/photo/portrait-480.avif 480w, /assets/img/photo/portrait-800.avif 800w, /assets/img/photo/portrait-1200.avif 1200w" sizes="(min-width: 960px) 40vw, 90vw">
-          <source type="image/webp" srcset="/assets/img/photo/portrait-480.webp 480w, /assets/img/photo/portrait-800.webp 800w, /assets/img/photo/portrait-1200.webp 1200w" sizes="(min-width: 960px) 40vw, 90vw">
-          <img src="/assets/img/photo/portrait-800.jpg" width="800" height="1000" alt="${esc(H.photoAlt)}" fetchpriority="high" decoding="async">
+          <source type="image/avif" srcset="/assets/img/photo/portrait-480.avif?v=__BUILD__ 480w, /assets/img/photo/portrait-800.avif?v=__BUILD__ 800w, /assets/img/photo/portrait-1200.avif?v=__BUILD__ 1200w" sizes="(min-width: 960px) 40vw, 90vw">
+          <source type="image/webp" srcset="/assets/img/photo/portrait-480.webp?v=__BUILD__ 480w, /assets/img/photo/portrait-800.webp?v=__BUILD__ 800w, /assets/img/photo/portrait-1200.webp?v=__BUILD__ 1200w" sizes="(min-width: 960px) 40vw, 90vw">
+          <img src="/assets/img/photo/portrait-800.jpg?v=__BUILD__" width="800" height="1000" alt="${esc(H.photoAlt)}" fetchpriority="high" decoding="async">
         </picture>
       </div>
       <figcaption class="portrait-chip chip-location">${icon('pin')}<span>${esc(H.location)}</span></figcaption>
@@ -269,8 +269,8 @@ function about(lang, L) {
     </div>
     <figure class="about-scene reveal">
       <picture>
-        <source type="image/webp" srcset="/assets/img/photo/scene-960.webp 960w, /assets/img/photo/scene-1500.webp 1500w" sizes="(min-width: 960px) 36vw, 90vw">
-        <img src="/assets/img/photo/scene-960.jpg" width="960" height="1280" alt="${esc(A.sceneAlt)}" loading="lazy" decoding="async">
+        <source type="image/webp" srcset="/assets/img/photo/scene-960.webp?v=__BUILD__ 960w, /assets/img/photo/scene-1500.webp?v=__BUILD__ 1500w" sizes="(min-width: 960px) 36vw, 90vw">
+        <img src="/assets/img/photo/scene-960.jpg?v=__BUILD__" width="960" height="1280" alt="${esc(A.sceneAlt)}" loading="lazy" decoding="async">
       </picture>
     </figure>
   </div>

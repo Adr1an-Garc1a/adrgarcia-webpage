@@ -14,10 +14,11 @@ const dist = join(root, 'dist');
 rmSync(dist, { recursive: true, force: true });
 cpSync(pub, dist, { recursive: true });
 
-// Cache-busting token: hash of every CSS/JS file.
+// Cache-busting token: hash of every asset (CSS, JS and images), so replacing a
+// photo under the same file name still reaches browsers that cached the old one.
 const walk = (d) => readdirSync(d).flatMap((f) => (statSync(join(d, f)).isDirectory() ? walk(join(d, f)) : [join(d, f)]));
 const h = createHash('sha256');
-for (const f of walk(join(pub, 'assets')).filter((f) => /\.(css|js)$/.test(f)).sort()) h.update(readFileSync(f));
+for (const f of walk(join(pub, 'assets')).sort()) h.update(readFileSync(f));
 const build = h.digest('hex').slice(0, 10);
 
 const write = (rel, html) => {
