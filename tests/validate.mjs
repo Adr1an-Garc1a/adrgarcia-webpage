@@ -103,6 +103,9 @@ for (const [label, re] of [
 }
 if (count('index.html', /class="cert-card /g) !== 6) fail('expected 6 certification cards');
 
+for (const p of ['404.html', 'en/404.html'])
+  if (!/class="e404-link" href="https:\/\/mail\.google\.com\/mail\/\?view=cm/.test(readFileSync(join(dist, p), 'utf8'))) fail(`${p}: missing Gmail compose shortcut`);
+
 // 8) Contact is email + LinkedIn only: the CV is not published anywhere.
 for (const f of files) if (/cv/i.test(f.slice(dist.length)) && /\.(pdf|webp|png|jpe?g)$/.test(f)) fail(`${f.slice(dist.length)}: CV file must not be published`);
 for (const p of ['index.html', 'en/index.html']) {
@@ -110,7 +113,9 @@ for (const p of ['index.html', 'en/index.html']) {
   if (/\.pdf"[^>]*\sdownload\b|href="[^"]*cv[^"]*\.pdf"/i.test(html)) fail(`${p}: CV download link found`);
   // Every "email me" link opens a draft addressed to the right inbox.
   const mails = [...html.matchAll(/href="(mailto:[^"]+)"/g)].map((m) => m[1].replaceAll('&amp;', '&'));
-  if (mails.length < 2) fail(`${p}: expected mailto links in the contact section`);
+  if (mails.length < 1) fail(`${p}: expected the email address to open a mail draft`);
+  if (!/class="contact-actions">[\s\S]*?mail\.google\.com\/mail\/\?view=cm/.test(html)) fail(`${p}: contact is missing the Gmail compose button`);
+  if (/class="contact-actions">[\s\S]*?href="mailto:[\s\S]*?<\/div>/.test(html.match(/class="contact-actions">[\s\S]*?<\/div>/)?.[0] || '')) fail(`${p}: contact still has a mailto button`);
   if (!/class="hero-actions">[\s\S]*?mail\.google\.com\/mail\/\?view=cm/.test(html)) fail(`${p}: hero is missing the Gmail compose button`);
   for (const m of mails) {
     const u = new URL(m);

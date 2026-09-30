@@ -483,8 +483,7 @@ function contact(lang, L) {
       <button class="icon-btn copy-btn" type="button" data-copy="${site.email}" data-copied="${esc(C.copied)}" aria-label="${esc(C.copy)}">${icon('copy', 'icon icon-copy')}${icon('check', 'icon icon-check')}</button>
     </div>
     <div class="contact-actions">
-      <a class="btn btn-primary btn-on-dark" href="${esc(mailto(L))}" data-mailto>${icon('mail')}<span>${esc(C.email)}</span></a>
-      <a class="btn btn-secondary btn-on-dark" href="${esc(gmail(L))}" ${ext}>${icon('external')}<span>${esc(C.gmail)}</span><span class="visually-hidden"> ${esc(L.certs.newTab)}</span></a>
+      <a class="btn btn-primary btn-on-dark" href="${esc(gmail(L))}" ${ext}>${icon('mail')}<span>${esc(C.gmail)}</span><span class="visually-hidden"> ${esc(L.certs.newTab)}</span></a>
       <a class="btn btn-secondary btn-on-dark" href="${site.linkedin}" ${ext}>${icon('linkedin')}<span>${esc(C.linkedin)}</span><span class="visually-hidden"> ${esc(L.certs.newTab)}</span></a>
     </div>
   </div>
@@ -569,7 +568,7 @@ export function render404(lang) {
   const links = [
     { href: `${L.path}#${ids.experience}`, icon: 'route', label: N.links.experience },
     { href: `${L.path}#${ids.certs}`, icon: 'shield', label: N.links.certs },
-    { href: mailto(L), icon: 'mail', label: N.links.contact, mail: true },
+    { href: gmail(L), icon: 'mail', label: N.links.contact, newTab: true },
   ];
   return `<!doctype html>
 <html lang="${L.htmlLang}" data-lang="${lang}">
@@ -610,7 +609,7 @@ ${sprite}
     <ul class="e404-links" role="list">
       ${links
         .map(
-          (l) => `<li><a class="e404-link" href="${esc(l.href)}"${l.mail ? ' data-mailto' : ''}>${icon(l.icon)}<span>${esc(l.label)}</span>${icon('arrow', 'icon e404-arrow')}</a></li>`
+          (l) => `<li><a class="e404-link" href="${esc(l.href)}"${l.newTab ? ` ${ext}` : ''}>${icon(l.icon)}<span>${esc(l.label)}</span>${l.newTab ? `<span class="visually-hidden"> ${esc(L.certs.newTab)}</span>` : ''}${icon('arrow', 'icon e404-arrow')}</a></li>`
         )
         .join('')}
     </ul>
